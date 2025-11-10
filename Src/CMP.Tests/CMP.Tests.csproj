@@ -5,6 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <RootNamespace>CMP.Tests</RootNamespace>
+    <IntermediateOutputPath>..\..\_obj\$(Configuration)CMP.Tests\</IntermediateOutputPath>
+    <OutputPath>..\..\Bin\$(Configuration)\Tests</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

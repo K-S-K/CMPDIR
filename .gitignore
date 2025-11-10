@@ -425,3 +425,5 @@ FodyWeavers.xsd
 _obj/
 Bin/
 
+# Project Experiment Data Files
+Dat/
