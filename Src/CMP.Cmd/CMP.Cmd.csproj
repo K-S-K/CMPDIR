@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\CMP.Lib\CMP.Lib.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>CMP.Lib</RootNamespace>
+    <IntermediateOutputPath>..\..\_obj\$(Configuration)CMP.Lib\</IntermediateOutputPath>
+    <OutputPath>..\..\Bin\$(Configuration)\Lib</OutputPath>
+  </PropertyGroup>
+
+</Project>

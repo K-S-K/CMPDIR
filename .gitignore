@@ -416,3 +416,12 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Mac Folder Attributes
+.DS_Store
+
+
+# Intermediate and Output paths
+_obj/
+Bin/
+
