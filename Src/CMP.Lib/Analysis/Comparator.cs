@@ -68,13 +68,6 @@ public static class Comparator
                     int sourceCount = notEqualSourceFiles.Count;
                     int targetCount = notEqualTargetFiles.Count;
 
-                    // should be deduplicated
-                    if (notEqualSourceFiles.Any(sf => sf.FileName.Contains("Unlocked")) ||
-                       notEqualTargetFiles.Any(tf => tf.FileName.Contains("Unlocked")))
-                    {
-                        Console.WriteLine("Debug");
-                    }
-
                     if (sourceCount > 0 && targetCount > 0)
                     {
                         for (int i = 0; i < Math.Min(sourceCount, targetCount); i++)
@@ -98,8 +91,77 @@ public static class Comparator
             }
         }
 
-        // Implementation of comparison logic goes here
-        // This would involve comparing files and subdirectories,
-        // and updating FileData objects with comparison results.
+        // Further comparison logic to identify added, deleted, duplicated, and deduplicated files
+
+        // Common Property Index Values collection
+        HashSet<string> commonPropertyIndex = [.. sourceIndex.PropertyIndexes];
+        commonPropertyIndex.UnionWith(targetIndex.PropertyIndexes);
+
+
+        foreach (string propertyIndexValue in commonPropertyIndex)
+        {
+            sourceIndex.TryGetFileDataByPropertyIndex(propertyIndexValue, out List<FileData> sourceFiles);
+            targetIndex.TryGetFileDataByPropertyIndex(propertyIndexValue, out List<FileData> targetFiles);
+
+            // filter out "Equal" and "Moved" or "Modified" files
+            List<FileData> notAssignedSourceFiles = sourceFiles.Where(sf => sf.CmpResult == null).ToList();
+            List<FileData> notAssignedTargetFiles = targetFiles.Where(tf => tf.CmpResult == null).ToList();
+
+            int fullSourceCount = sourceFiles.Count;
+            int fullTargetCount = targetFiles.Count;
+
+            int notAssignedSourceFilesCount = notAssignedSourceFiles.Count;
+            int notAssignedTargetFilesCount = notAssignedTargetFiles.Count;
+
+            if (fullSourceCount > 0 && fullTargetCount > 0)
+            {
+                if (notAssignedSourceFilesCount > 0)
+                {
+                    for (int i = 0; i < notAssignedSourceFilesCount; i++)
+                    {
+                        FileData sourceFile = notAssignedSourceFiles[i];
+                        sourceFile.CmpResult = new FileCmpResult
+                        {
+                            Result = CmpResult.Deduplicated,
+                            Files = targetFiles
+                        };
+                    }
+                }
+                else if (notAssignedTargetFilesCount > 0)
+                {
+                    for (int i = 0; i < notAssignedTargetFilesCount; i++)
+                    {
+                        FileData targetFile = notAssignedTargetFiles[i];
+                        targetFile.CmpResult = new FileCmpResult
+                        {
+                            Result = CmpResult.Duplicated,
+                            Files = sourceFiles
+                        };
+                    }
+                }
+            }
+            else if (fullSourceCount > 0 && fullTargetCount == 0)
+            {
+                foreach (var sourceFile in notAssignedSourceFiles)
+                {
+                    sourceFile.CmpResult = new FileCmpResult
+                    {
+                        Result = CmpResult.Deleted,
+                        Files = []
+                    };
+                }
+            }
+            else if (fullTargetCount > 0 && fullSourceCount == 0)
+            {
+                foreach (var targetFile in notAssignedTargetFiles)
+                {
+                    targetFile.CmpResult = new FileCmpResult
+                    {
+                        Result = CmpResult.Added,
+                        Files = []
+                    };
+                }
+            }
+        }
     }
 }

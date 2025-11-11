@@ -40,6 +40,6 @@ public class FileData
     /// </summary>
     public override string ToString()
     {
-        return $"[{RelativeDirectoryPath}] {FileName} CMP: {{{(CmpResult==null?"":CmpResult.Result)}}} (Size: {Size}, CRC: {CRC:X8})";
+        return $"CMP: {{{(CmpResult == null ? "" : CmpResult.Result)}}} [{RelativeDirectoryPath}] {FileName} (Size: {Size}, CRC: {CRC:X8})";
     }
 }
