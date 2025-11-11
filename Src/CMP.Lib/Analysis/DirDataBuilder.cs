@@ -11,12 +11,20 @@ public static class DirDataBuilder
     /// Build DirData from the specified directory path
     /// </summary>
     /// <param name="dirPath">The directory path to build from</param>
+    /// <param name="isRoot">Whether this is the root directory</param>
+    /// <param name="rootPath">The root path for relative path calculation</param>
     /// <returns>The built DirData</returns>
-    public static DirData BuildFromDirectory(string dirPath)
+    public static DirData BuildFromDirectory(string dirPath, bool isRoot = true, string? rootPath = null)
     {
+        if (isRoot && rootPath == null)
+        {
+            rootPath = dirPath;
+        }
+
         DirData dirData = new()
         {
-            DirPath = dirPath
+            AbsoluteDirectoryPath = dirPath,
+            RelativeDirectoryPath = isRoot ? "/" : Path.GetRelativePath(rootPath!, dirPath)
         };
 
         // Process files
@@ -28,6 +36,7 @@ public static class DirDataBuilder
             FileData fileData = new()
             {
                 FileName = Path.GetFileName(filePath),
+                RelativeDirectoryPath = dirData.RelativeDirectoryPath,
                 Size = fileInfo.Length,
                 CRC = Crc32.ComputeFile(filePath),
             };
@@ -40,7 +49,7 @@ public static class DirDataBuilder
         string[] subDirEntries = Directory.GetDirectories(dirPath);
         foreach (string subDirPath in subDirEntries)
         {
-            DirData subDirData = BuildFromDirectory(subDirPath);
+            DirData subDirData = BuildFromDirectory(subDirPath, false, rootPath);
             subDirs.Add(subDirData);
         }
         dirData.SubDirs = subDirs.OrderBy(d => d.DirName).ToList();
