@@ -33,16 +33,21 @@ public static class Comparator
             string relativePath = Path.Combine(sourceFile.RelativeDirectoryPath, sourceFile.FileName);
             if (targetIndex.TryGetFileData(relativePath, out var targetFile))
             {
-                if (targetFile != null && sourceFile.Size == targetFile.Size && sourceFile.CRC == targetFile.CRC)
+                if (targetFile != null)
                 {
+                    CmpResult cmpResult =
+                        sourceFile.Size == targetFile.Size && sourceFile.CRC == targetFile.CRC
+                        ? CmpResult.Equal
+                        : CmpResult.Modified;
+
                     sourceFile.CmpResult = new FileCmpResult
                     {
-                        Result = CmpResult.Equal,
+                        Result = cmpResult,
                         Files = [targetFile]
                     };
                     targetFile.CmpResult = new FileCmpResult
                     {
-                        Result = CmpResult.Equal,
+                        Result = cmpResult,
                         Files = [sourceFile]
                     };
                 }
