@@ -31,10 +31,15 @@ public class FileData
     public FileCmpResult? CmpResult { get; set; }
 
     /// <summary>
+    /// The property index value for quick comparison
+    /// </summary>
+    public string PropertyIndexValue => $"{Size}-{CRC:X8}";
+
+    /// <summary>
     /// Override ToString for better debugging output
     /// </summary>
     public override string ToString()
     {
-        return $"[{RelativeDirectoryPath}] {FileName} (Size: {Size}, CRC: {CRC:X8})";
+        return $"[{RelativeDirectoryPath}] {FileName} CMP: {{{(CmpResult==null?"":CmpResult.Result)}}} (Size: {Size}, CRC: {CRC:X8})";
     }
 }

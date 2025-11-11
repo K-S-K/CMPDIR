@@ -49,6 +49,50 @@ public static class Comparator
             }
         }
 
+        // Further comparison logic to identify moved files
+        foreach (string propertyIndexValue in sourceIndex.PropertyIndexes)
+        {
+            if (sourceIndex.TryGetFileDataByPropertyIndex(propertyIndexValue, out List<FileData> sourceFiles))
+            {
+                if (targetIndex.TryGetFileDataByPropertyIndex(propertyIndexValue, out List<FileData> targetFiles))
+                {
+                    // filter out already equal files
+                    var notEqualSourceFiles = sourceFiles.Where(sf => sf.CmpResult == null || sf.CmpResult.Result != CmpResult.Equal).ToList();
+                    var notEqualTargetFiles = targetFiles.Where(tf => tf.CmpResult == null || tf.CmpResult.Result != CmpResult.Equal).ToList();
+
+                    int sourceCount = notEqualSourceFiles.Count;
+                    int targetCount = notEqualTargetFiles.Count;
+
+                    // should be deduplicated
+                    if (notEqualSourceFiles.Any(sf => sf.FileName.Contains("Unlocked")) ||
+                       notEqualTargetFiles.Any(tf => tf.FileName.Contains("Unlocked")))
+                    {
+                        Console.WriteLine("Debug");
+                    }
+
+                    if (sourceCount > 0 && targetCount > 0)
+                    {
+                        for (int i = 0; i < Math.Min(sourceCount, targetCount); i++)
+                        {
+                            FileData sourceFile = notEqualSourceFiles[i];
+                            FileData targetFile = notEqualTargetFiles[i];
+
+                            sourceFile.CmpResult = new FileCmpResult
+                            {
+                                Result = CmpResult.Moved,
+                                Files = [targetFile]
+                            };
+                            targetFile.CmpResult = new FileCmpResult
+                            {
+                                Result = CmpResult.Moved,
+                                Files = [sourceFile]
+                            };
+                        }
+                    }
+                }
+            }
+        }
+
         // Implementation of comparison logic goes here
         // This would involve comparing files and subdirectories,
         // and updating FileData objects with comparison results.

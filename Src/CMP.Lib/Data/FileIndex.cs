@@ -9,7 +9,12 @@ public class FileIndex
     /// <summary>
     /// The File Index Dictionary by relative file paths
     /// </summary>
-    private Dictionary<string, FileData> _files { get; set; } = [];
+    private Dictionary<string, FileData> _pathIndex { get; set; } = [];
+
+    /// <summary>
+    /// The Property Index Dictionary by property index values
+    /// </summary>
+    private Dictionary<string, List<FileData>> _propertyIndex { get; set; } = [];
     #endregion
 
 
@@ -22,7 +27,12 @@ public class FileIndex
     /// <summary>
     /// The list of all indexed files
     /// </summary>
-    public List<FileData> Files => _files.Values.ToList();
+    public List<FileData> Files => _pathIndex.Values.ToList();
+
+    /// <summary>
+    /// The list of all property index values
+    /// </summary>
+    public List<string> PropertyIndexes => _propertyIndex.Keys.ToList();
     #endregion
 
 
@@ -35,7 +45,23 @@ public class FileIndex
     /// <returns>True if found, false otherwise</returns>
     public bool TryGetFileData(string relativePath, out FileData? fileData)
     {
-        return _files.TryGetValue(relativePath, out fileData);
+        return _pathIndex.TryGetValue(relativePath, out fileData);
+    }
+
+    /// <summary>
+    /// Try to get FileData by property index value
+    /// </summary>
+    /// <param name="propertyIndexValue">The property index value</param>
+    /// <param name="fileData">The output FileData if found</param>
+    /// <returns>True if found, false otherwise</returns>
+    public bool TryGetFileDataByPropertyIndex(string propertyIndexValue, out List<FileData> fileData)
+    {
+        if (!_propertyIndex.TryGetValue(propertyIndexValue, out List<FileData>? result))
+        {
+            result = [];
+        }
+        fileData = result;
+        return fileData.Count > 0;
     }
 
     /// <summary>
@@ -43,7 +69,7 @@ public class FileIndex
     /// </summary>
     public override string ToString()
     {
-        return $"{RootDirectoryPath}: File count: {_files.Count}";
+        return $"{RootDirectoryPath}: File count: {_pathIndex.Count}";
     }
     #endregion
 
@@ -78,7 +104,14 @@ public class FileIndex
         foreach (var fileData in dirData.Files)
         {
             string relativePath = Path.Combine(dirData.RelativeDirectoryPath, fileData.FileName);
-            fileIndex._files[relativePath] = fileData;
+            fileIndex._pathIndex[relativePath] = fileData;
+
+            string propertyIndexValue = fileData.PropertyIndexValue;
+            if (!fileIndex._propertyIndex.ContainsKey(propertyIndexValue))
+            {
+                fileIndex._propertyIndex[propertyIndexValue] = [];
+            }
+            fileIndex._propertyIndex[propertyIndexValue].Add(fileData);
         }
 
         foreach (var subDir in dirData.SubDirs)
