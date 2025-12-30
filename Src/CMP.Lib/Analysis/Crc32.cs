@@ -23,7 +23,7 @@ public static class Crc32
         return table;
     }
 
-    public static uint ComputeFile(string fileName)
+    public static uint ComputeFileByByte(string fileName)
     {
         uint crc = 0xFFFFFFFFu;
 
@@ -37,6 +37,33 @@ public static class Crc32
         }
 
         return ~crc; // Final XOR
+    }
+
+    public static uint ComputeFile(string fileName)
+    {
+        uint crc = 0xFFFFFFFFu;
+
+        const int BufferSize = 1024 * 1024 * 8; // 8 MB
+        byte[] buffer = new byte[BufferSize];
+
+        using var stream = new FileStream(
+            fileName,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.Read,
+            BufferSize,
+            FileOptions.SequentialScan);
+
+        int bytesRead;
+        while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+        {
+            for (int i = 0; i < bytesRead; i++)
+            {
+                crc = Table[(crc ^ buffer[i]) & 0xFF] ^ (crc >> 8);
+            }
+        }
+
+        return ~crc;
     }
 
     public static string ComputeFileHex(string fileName) =>
