@@ -10,8 +10,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>CMP.Lib</RootNamespace>
-    <IntermediateOutputPath>..\..\_obj\$(Configuration)CMP.Lib\</IntermediateOutputPath>
-    <OutputPath>..\..\Bin\$(Configuration)\Lib</OutputPath>
+    <IntermediateOutputPath>..\..\_obj\$(Configuration)CMP.Cmd\</IntermediateOutputPath>
+    <OutputPath>..\..\Bin\$(Configuration)</OutputPath>
   </PropertyGroup>
 
 </Project>

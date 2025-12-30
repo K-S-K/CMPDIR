@@ -4,9 +4,9 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>CMP.Cmd</RootNamespace>
-    <IntermediateOutputPath>..\..\_obj\$(Configuration)CMP.Cmd\</IntermediateOutputPath>
-    <OutputPath>..\..\Bin\$(Configuration)\Cmd</OutputPath>
+    <RootNamespace>CMP.Lib</RootNamespace>
+    <IntermediateOutputPath>..\..\_obj\$(Configuration)CMP.Lib\</IntermediateOutputPath>
+    <OutputPath>..\..\Bin\$(Configuration)</OutputPath>
   </PropertyGroup>
 
 </Project>
