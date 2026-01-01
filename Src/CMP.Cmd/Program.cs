@@ -1,14 +1,12 @@
-﻿using System.Text.Json;
-using System.Text.Unicode;
-using System.Text.Encodings.Web;
-
-using CMP.Lib.Data;
+﻿using CMP.Lib.Rpt;
 using CMP.Lib.Analysis;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
+        DirectoryProcessor directoryProcessor = new(new ConsoleReportService());
+
         // Write greeting message to the console
         Console.WriteLine("Directory Comparator Program");
         if (args.Length == 3)
@@ -17,7 +15,7 @@ internal class Program
             string targetDirPath = args[1];
             string reportFilePath = args[2];
 
-            if (CompareDirectoriesContents(sourceDirPath, targetDirPath, out string resultJson))
+            if (directoryProcessor.CompareDirectoriesContents(sourceDirPath, targetDirPath, out string resultJson))
             {
                 System.IO.File.WriteAllText(reportFilePath, resultJson);
             }
@@ -32,7 +30,7 @@ internal class Program
             string dirPath = args[0];
             string outputFilePath = args[1];
 
-            if (BuildDirectoryContent(dirPath, out string jsonString))
+            if (directoryProcessor.BuildDirectoryContent(dirPath, out string jsonString))
             {
                 System.IO.File.WriteAllText(outputFilePath, jsonString);
             }
@@ -48,62 +46,5 @@ internal class Program
             Console.WriteLine("  To list directory content: CMP.Cmd <dirPath> <outputFilePath>");
             Console.WriteLine("  To compare directories: CMP.Cmd <sourceDirPath> <targetDirPath> <reportFilePath>");
         }
-    }
-
-    private static bool CompareDirectoriesContents(string sourceDirPath, string targetDirPath, out string resultJson)
-    {
-        try
-        {
-            DirData sourceDirData = DirDataBuilder.BuildFromDirectory(sourceDirPath);
-            DirData targetDirData = DirDataBuilder.BuildFromDirectory(targetDirPath);
-
-            Comparator.CompareDirData(sourceDirData, targetDirData);
-
-            var comparisonResult = new
-            {
-                Source = sourceDirData,
-                Target = targetDirData
-            };
-
-            resultJson = JsonSerializer.Serialize(
-                comparisonResult,
-                new JsonSerializerOptions
-                {
-                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-                    WriteIndented = true
-                }
-            );
-        }
-        catch (Exception ex)
-        {
-            resultJson = $"Error: {ex.Message}";
-            return false;
-        }
-
-        return true;
-    }
-
-    private static bool BuildDirectoryContent(string dirPath, out string jsonString)
-    {
-        try
-        {
-            DirData dirData = DirDataBuilder.BuildFromDirectory(dirPath);
-
-            jsonString = JsonSerializer.Serialize(
-                dirData,
-                new JsonSerializerOptions
-                {
-                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-                    WriteIndented = true
-                }
-            );
-        }
-        catch (Exception ex)
-        {
-            jsonString = $"Error: {ex.Message}";
-            return false;
-        }
-
-        return true;
     }
 }
