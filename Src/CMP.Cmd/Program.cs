@@ -1,50 +1,24 @@
-﻿using CMP.Lib.Rpt;
+﻿using CMP.Lib;
+using CMP.Lib.Rpt;
 using CMP.Lib.Analysis;
 
-internal class Program
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+
+internal static class Program
 {
-    private static void Main(string[] args)
+    public static int Main(string[] args)
     {
-        DirectoryProcessor directoryProcessor = new(new ConsoleReportService());
+        using var host = Host.CreateDefaultBuilder(args)
+            .ConfigureServices(services =>
+            {
+                services.AddSingleton<IReportService, ConsoleReportService>();
+                services.AddSingleton<DirectoryProcessor>();
+                services.AddSingleton<DirectoryCompareApp>();
+            })
+            .Build();
 
-        // Write greeting message to the console
-        Console.WriteLine("Directory Comparator Program");
-        if (args.Length == 3)
-        {
-            string sourceDirPath = args[0];
-            string targetDirPath = args[1];
-            string reportFilePath = args[2];
-
-            if (directoryProcessor.CompareDirectoriesContents(sourceDirPath, targetDirPath, out string resultJson))
-            {
-                System.IO.File.WriteAllText(reportFilePath, resultJson);
-            }
-            else
-            {
-                Console.WriteLine("Failed to compare directories.");
-                Console.WriteLine(resultJson);
-            }
-        }
-        else if (args.Length == 2)
-        {
-            string dirPath = args[0];
-            string outputFilePath = args[1];
-
-            if (directoryProcessor.BuildDirectoryContent(dirPath, out string jsonString))
-            {
-                System.IO.File.WriteAllText(outputFilePath, jsonString);
-            }
-            else
-            {
-                Console.WriteLine("Failed to build directory content.");
-                Console.WriteLine(jsonString);
-            }
-        }
-        else
-        {
-            Console.WriteLine("Usage:");
-            Console.WriteLine("  To list directory content: CMP.Cmd <dirPath> <outputFilePath>");
-            Console.WriteLine("  To compare directories: CMP.Cmd <sourceDirPath> <targetDirPath> <reportFilePath>");
-        }
+        var app = host.Services.GetRequiredService<DirectoryCompareApp>();
+        return app.Run(args);
     }
 }
