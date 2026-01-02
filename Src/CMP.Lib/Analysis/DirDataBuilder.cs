@@ -41,7 +41,7 @@ public class DirDataBuilder
             timer.Elapsed += (_, _) =>
             {
                 _progressReporter.Report(new ProgressInfo(
-                    "Processing files", ProcessedFileCount, DetectedFileCount));
+                    "Processing files", swCalculate.Elapsed, ProcessedFileCount, DetectedFileCount));
             };
             timer.Start();
 
@@ -104,7 +104,7 @@ public class DirDataBuilder
             {
                 timer.Elapsed += (_, _) =>
                 {
-                    _progressReporter.Report(new ProgressInfo("Collecting files", DetectedFileCount));
+                    _progressReporter.Report(new ProgressInfo("Collecting files", swCollect.Elapsed, DetectedFileCount));
                 };
                 timer.Start();
             }
