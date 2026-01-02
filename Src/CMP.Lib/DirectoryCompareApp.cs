@@ -18,8 +18,6 @@ public sealed class DirectoryCompareApp
 
     public int Run(string[] args)
     {
-        _report.Info("Directory Comparator Program");
-
         if (args.Length == 3)
             return Compare(args);
 
@@ -51,16 +49,16 @@ public sealed class DirectoryCompareApp
     private int Build(string[] args)
     {
         var dir = args[0];
-        var output = args[1];
+        var outputFilePath = args[1];
 
         if (_processor.BuildDirectoryContent(dir, out var json))
         {
-            File.WriteAllText(output, json);
-            _report.Info("Directory content saved.");
+            File.WriteAllText(outputFilePath, json);
+            _report.Info($"Directory content saved to: {outputFilePath}");
             return 0;
         }
 
-        _report.Error("Failed to build directory content.");
+        _report.Error($"Failed to build directory content for: {dir}");
         _report.Error(json);
         return 2;
     }

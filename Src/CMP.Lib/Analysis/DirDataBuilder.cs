@@ -66,7 +66,10 @@ public static class DirDataBuilder
             dirData.SubDirs = subDirs.OrderBy(d => d.DirName).ToList();
 
             swCollect.Stop();
-            reportService.Info($"Collected data from directory: {dirPath} in {swCollect.ElapsedMilliseconds} ms");
+            if (nodeLevel == TNL.Root)
+            {
+                reportService.Info($"Collected data from directory: {dirPath} in {swCollect.ElapsedMilliseconds / 1000.0:F3} s.");
+            }
         }
         #endregion
 
@@ -78,7 +81,10 @@ public static class DirDataBuilder
             CalculateCrc32(dirData);
 
             swCalculate.Stop();
-            reportService.Info($"Calculated CRC32 for directory: {dirPath} in {swCalculate.ElapsedMilliseconds} ms");
+            if (nodeLevel == TNL.Root)
+            {
+                reportService.Info($"Calculated CRC32 for directory: {dirPath} in {swCalculate.ElapsedMilliseconds / 1000.0:F3} s.");
+            }
         }
         #endregion
 
