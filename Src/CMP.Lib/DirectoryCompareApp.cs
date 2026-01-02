@@ -1,5 +1,5 @@
-﻿using CMP.Lib.Rpt;
-using CMP.Lib.Analysis;
+﻿using CMP.Lib.Analysis;
+using CMP.Lib.Diagnostics;
 
 namespace CMP.Lib;
 

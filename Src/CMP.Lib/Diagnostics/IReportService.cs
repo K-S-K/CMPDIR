@@ -1,4 +1,4 @@
-﻿namespace CMP.Lib.Rpt;
+﻿namespace CMP.Lib.Diagnostics;
 
 public interface IReportService
 {

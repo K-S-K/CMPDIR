@@ -1,6 +1,6 @@
 ﻿using CMP.Lib;
-using CMP.Lib.Rpt;
 using CMP.Lib.Analysis;
+using CMP.Lib.Diagnostics;
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;

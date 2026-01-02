@@ -1,4 +1,4 @@
-﻿namespace CMP.Lib.Rpt;
+﻿namespace CMP.Lib.Diagnostics;
 
 /// <summary>
 /// A report service that outputs to the console

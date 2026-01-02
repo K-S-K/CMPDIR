@@ -1,7 +1,7 @@
 using System.Diagnostics;
 
 using CMP.Lib.Data;
-using CMP.Lib.Rpt;
+using CMP.Lib.Diagnostics;
 
 namespace CMP.Lib.Analysis;
 

@@ -2,10 +2,11 @@
 using System.Text.Unicode;
 using System.Text.Encodings.Web;
 
-using CMP.Tests.Common;
-using CMP.Lib.Analysis;
 using CMP.Lib.Data;
-using CMP.Lib.Rpt;
+using CMP.Lib.Analysis;
+using CMP.Lib.Diagnostics;
+
+using CMP.Tests.Common;
 
 namespace CMP.Tests;
 

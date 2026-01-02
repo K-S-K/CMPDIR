@@ -2,8 +2,8 @@
 using System.Text.Unicode;
 using System.Text.Encodings.Web;
 
-using CMP.Lib.Rpt;
 using CMP.Lib.Data;
+using CMP.Lib.Diagnostics;
 
 namespace CMP.Lib.Analysis;
 
