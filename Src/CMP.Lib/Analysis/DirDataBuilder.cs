@@ -16,9 +16,10 @@ public static class DirDataBuilder
     /// <param name="dirPath">The directory path to build from</param>
     /// <param name="nodeLevel">Whether this is the root directory</param>
     /// <param name="reportService">The report service for logging</param>
+    /// <param name="progressReporter">The progress reporter</param>
     /// <param name="rootPath">The root path for relative path calculation</param>
     /// <returns>The built DirData</returns>
-    public static DirData BuildFromDirectory(string dirPath, TNL nodeLevel, IReportService reportService, string? rootPath = null)
+    public static DirData BuildFromDirectory(string dirPath, TNL nodeLevel, IReportService reportService, IProgressReporter progressReporter, string? rootPath = null)
     {
         if (nodeLevel == TNL.Root && rootPath == null)
         {
@@ -60,7 +61,7 @@ public static class DirDataBuilder
             string[] subDirEntries = Directory.GetDirectories(dirPath);
             foreach (string subDirPath in subDirEntries)
             {
-                DirData subDirData = BuildFromDirectory(subDirPath, TNL.Branch, reportService, rootPath);
+                DirData subDirData = BuildFromDirectory(subDirPath, TNL.Branch, reportService, progressReporter, rootPath);
                 subDirs.Add(subDirData);
             }
             dirData.SubDirs = subDirs.OrderBy(d => d.DirName).ToList();

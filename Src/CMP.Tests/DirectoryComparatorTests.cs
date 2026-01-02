@@ -21,9 +21,10 @@ public class DirectoryComparatorTests : TestBase
         string targetDirPath = Path.Combine(dataDirectory, "books.v2");
 
         IReportService reportService = new DiagnosticsReportService();
+        IProgressReporter progressReporter = new DiagnosticsProgressReporter();
 
-        DirData sourceDirData = DirDataBuilder.BuildFromDirectory(sourceDirPath, TNL.Root, reportService);
-        DirData targetDirData = DirDataBuilder.BuildFromDirectory(targetDirPath, TNL.Root, reportService);
+        DirData sourceDirData = DirDataBuilder.BuildFromDirectory(sourceDirPath, TNL.Root, reportService, progressReporter);
+        DirData targetDirData = DirDataBuilder.BuildFromDirectory(targetDirPath, TNL.Root, reportService, progressReporter);
 
         Comparator.CompareDirData(sourceDirData, targetDirData);
 

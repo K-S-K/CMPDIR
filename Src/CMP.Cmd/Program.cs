@@ -13,6 +13,7 @@ internal static class Program
             .ConfigureServices(services =>
             {
                 services.AddSingleton<IReportService, ConsoleReportService>();
+                services.AddSingleton<IProgressReporter, ConsoleProgressReporter>();
                 services.AddSingleton<DirectoryProcessor>();
                 services.AddSingleton<DirectoryCompareApp>();
             })

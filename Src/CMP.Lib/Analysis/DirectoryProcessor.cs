@@ -10,17 +10,19 @@ namespace CMP.Lib.Analysis;
 public class DirectoryProcessor
 {
     private readonly IReportService _reportService;
+    private readonly IProgressReporter _progressReporter;
 
-    public DirectoryProcessor(IReportService reportService)
+    public DirectoryProcessor(IReportService reportService, IProgressReporter progressReporter)
     {
         _reportService = reportService;
+        _progressReporter = progressReporter;
     }
 
     public bool BuildDirectoryContent(string dirPath, out string jsonString)
     {
         try
         {
-            DirData dirData = DirDataBuilder.BuildFromDirectory(dirPath, TNL.Root, _reportService);
+            DirData dirData = DirDataBuilder.BuildFromDirectory(dirPath, TNL.Root, _reportService, _progressReporter);
 
             jsonString = JsonSerializer.Serialize(
                 dirData,
@@ -44,8 +46,8 @@ public class DirectoryProcessor
     {
         try
         {
-            DirData sourceDirData = DirDataBuilder.BuildFromDirectory(sourceDirPath, TNL.Root, _reportService);
-            DirData targetDirData = DirDataBuilder.BuildFromDirectory(targetDirPath, TNL.Root, _reportService);
+            DirData sourceDirData = DirDataBuilder.BuildFromDirectory(sourceDirPath, TNL.Root, _reportService, _progressReporter);
+            DirData targetDirData = DirDataBuilder.BuildFromDirectory(targetDirPath, TNL.Root, _reportService, _progressReporter);
 
             Comparator.CompareDirData(sourceDirData, targetDirData);
 
