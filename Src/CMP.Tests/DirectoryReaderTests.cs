@@ -20,7 +20,7 @@ public class DirectoryReaderTests : TestBase
         string dataDirectory = EnVar("CMPDIR_TEST_DATA_PATH");
         string dirPath = Path.Combine(dataDirectory, "books.v2");
 
-        DirData dirData = DirDataBuilder.BuildFromDirectory(dirPath, TNL.Root, reportService, progressReporter);
+        DirData dirData = new DirDataBuilder().BuildFromDirectory(dirPath, TNL.Root, reportService, progressReporter);
         string jsonStringActual = JsonSerializer.Serialize(
             dirData,
             new JsonSerializerOptions

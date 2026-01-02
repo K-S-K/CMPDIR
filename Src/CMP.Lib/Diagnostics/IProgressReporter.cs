@@ -6,4 +6,5 @@
 public interface IProgressReporter
 {
     void Report(ProgressInfo info);
+    void Clear();
 }

@@ -22,6 +22,22 @@ public sealed class ConsoleLineUpdater
         _lastLength = text.Length;
     }
 
+    public void Clear()
+    {
+        // Move to start of line
+        Console.Write('\r');
+
+        // Clear leftover characters from previous write
+        int padding = _lastLength - 0;
+        if (padding > 0)
+        {
+            Console.Write(new string(' ', padding));
+        }
+
+        // Move to start of line
+        Console.Write('\r');
+    }
+
     public void Finish()
     {
         Console.WriteLine();

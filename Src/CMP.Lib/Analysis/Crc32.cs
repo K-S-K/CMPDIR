@@ -50,7 +50,7 @@ public static class Crc32
             fileName,
             FileMode.Open,
             FileAccess.Read,
-            FileShare.Read,
+            FileShare.ReadWrite,
             BufferSize,
             FileOptions.SequentialScan);
 
