@@ -2,9 +2,10 @@
 using System.Text.Unicode;
 using System.Text.Encodings.Web;
 
-using CMP.Lib.Data;
-using CMP.Lib.Analysis;
 using CMP.Tests.Common;
+using CMP.Lib.Analysis;
+using CMP.Lib.Data;
+using CMP.Lib.Rpt;
 
 namespace CMP.Tests;
 
@@ -13,11 +14,11 @@ public class DirectoryReaderTests : TestBase
     [Fact]
     public void DirReadTest()
     {
+        IReportService reportService = new DiagnosticsReportService();
         string dataDirectory = EnVar("CMPDIR_TEST_DATA_PATH");
         string dirPath = Path.Combine(dataDirectory, "books.v2");
 
-        DirData dirData = DirDataBuilder.BuildFromDirectory(dirPath);
-
+        DirData dirData = DirDataBuilder.BuildFromDirectory(dirPath, TNL.Root, reportService);
         string jsonStringActual = JsonSerializer.Serialize(
             dirData,
             new JsonSerializerOptions

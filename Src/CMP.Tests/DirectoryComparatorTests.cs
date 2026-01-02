@@ -2,9 +2,10 @@ using System.Text.Json;
 using System.Text.Unicode;
 using System.Text.Encodings.Web;
 
-using CMP.Lib.Data;
-using CMP.Lib.Analysis;
 using CMP.Tests.Common;
+using CMP.Lib.Analysis;
+using CMP.Lib.Data;
+using CMP.Lib.Rpt;
 
 namespace CMP.Tests;
 
@@ -18,8 +19,10 @@ public class DirectoryComparatorTests : TestBase
         string sourceDirPath = Path.Combine(dataDirectory, "books.v1");
         string targetDirPath = Path.Combine(dataDirectory, "books.v2");
 
-        DirData sourceDirData = DirDataBuilder.BuildFromDirectory(sourceDirPath);
-        DirData targetDirData = DirDataBuilder.BuildFromDirectory(targetDirPath);
+        IReportService reportService = new DiagnosticsReportService();
+
+        DirData sourceDirData = DirDataBuilder.BuildFromDirectory(sourceDirPath, TNL.Root, reportService);
+        DirData targetDirData = DirDataBuilder.BuildFromDirectory(targetDirPath, TNL.Root, reportService);
 
         Comparator.CompareDirData(sourceDirData, targetDirData);
 

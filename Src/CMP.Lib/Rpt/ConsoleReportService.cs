@@ -1,5 +1,8 @@
 ﻿namespace CMP.Lib.Rpt;
 
+/// <summary>
+/// A report service that outputs to the console
+/// </summary>
 public sealed class ConsoleReportService : IReportService
 {
     public void Info(string message)

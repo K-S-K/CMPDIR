@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "CMP.Cmd": {
+      "commandName": "Project",
+      "commandLineArgs": "cs es diff.json",
+      "workingDirectory": "Y:\\CMPDIR\\Bin\\Debug\\Tests\\net10.0"
+    }
+  }
+}
