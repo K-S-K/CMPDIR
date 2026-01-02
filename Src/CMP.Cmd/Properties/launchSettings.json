@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "CMP.Cmd": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Z:\\Fotki\\2025.12.21 Zugspize\" diff.json",
+      "workingDirectory": "Y:\\CMPDIR\\Bin\\Debug\\Tests\\net10.0"
+    }
+  }
+}
