@@ -12,6 +12,10 @@ public class DirDataBuilder
 {
     private long DetectedFileCount = 0;
     private long ProcessedFileCount = 0;
+    private long FailedFileCount = 0;
+    private List<string> Errors = [];
+
+    bool ErrorHandlingTesting = false;
 
 
     public DirData BuildFromDirectory(string dirPath, TNL nodeLevel, IReportService reportService, IProgressReporter progressReporter, string? rootPath = null)
@@ -34,18 +38,30 @@ public class DirDataBuilder
                 timer.Start();
             }
 
-            CalculateCrc32(dirData);
+            CalculateCrc32(dirData, reportService);
 
             swCalculate.Stop();
             if (nodeLevel == TNL.Root)
             {
                 progressReporter.Clear();
-                reportService.Info($"Calculated CRC32 for directory: {dirPath} in {swCalculate.ElapsedMilliseconds / 1000.0:F3} s.");
+                reportService.Info($"Calculated checksums in {swCalculate.ElapsedMilliseconds / 1000.0:F3} s.");
             }
         }
         #endregion
 
 
+        #region -> Error Reporting
+        if (Errors.Count > 0)
+        {
+            reportService.Error($"{Environment.NewLine}Completed with {FailedFileCount} failed file(s).");
+            int errorCounter = 0;
+            foreach (var error in Errors)
+            {
+                reportService.Error($"[{++errorCounter}]: {error}");
+            }
+            reportService.Info("");
+        }
+        #endregion
 
         return dirData;
     }
@@ -63,7 +79,7 @@ public class DirDataBuilder
         if (nodeLevel == TNL.Root && rootPath == null)
         {
             rootPath = dirPath;
-            reportService.Info($"Set root path to: {rootPath}");
+            reportService.Info($"Scanning the directory: {rootPath}");
         }
 
         DirData dirData = new()
@@ -83,17 +99,49 @@ public class DirDataBuilder
             {
                 timer.Elapsed += (_, _) =>
                 {
-                    progressReporter.Report(new ProgressInfo("Scanning files", DetectedFileCount));
+                    progressReporter.Report(new ProgressInfo("Collecting files", DetectedFileCount));
                 };
                 timer.Start();
             }
 
             // Collect files
             List<FileData> files = [];
-            string[] fileEntries = Directory.GetFiles(dirPath);
+            string[] fileEntries = [];
+            try
+            {
+                if (ErrorHandlingTesting && dirPath.Contains("Weather Station"))
+                {
+                    throw new Exception("Test exception at 'Weather Station'");
+                }
+
+                fileEntries = Directory.GetFiles(dirPath);
+            }
+            catch (Exception ex)
+            {
+                Interlocked.Increment(ref FailedFileCount);
+                Errors.Add($"Failed to get files from directory: {dirPath}. Reason: {ex.Message}");
+            }
+
             foreach (string filePath in fileEntries)
             {
-                FileInfo fileInfo = new(filePath);
+                FileInfo fileInfo;
+
+                try
+                {
+                    if (ErrorHandlingTesting && filePath.Contains("DSCF1898.jpg"))
+                    {
+                        throw new Exception("Test exception at 'DSCF1898.jpg'");
+                    }
+
+                    fileInfo = new(filePath);
+                }
+                catch (Exception ex)
+                {
+                    Interlocked.Increment(ref FailedFileCount);
+                    Errors.Add($"Failed to get info for file: {filePath}. Reason: {ex.Message}");
+                    continue;
+                }
+
                 FileData fileData = new()
                 {
                     FileName = Path.GetFileName(filePath),
@@ -109,7 +157,24 @@ public class DirDataBuilder
 
             // Collect subdirectories
             List<DirData> subDirs = [];
-            string[] subDirEntries = Directory.GetDirectories(dirPath);
+            string[] subDirEntries = [];
+            subDirEntries = Directory.GetDirectories(dirPath);
+
+            try
+            {
+                if (ErrorHandlingTesting && dirPath.Contains("Entrance"))
+                {
+                    throw new Exception("Test exception at 'Entrance'");
+                }
+
+                subDirEntries = Directory.GetDirectories(dirPath);
+            }
+            catch (Exception ex)
+            {
+                Interlocked.Increment(ref FailedFileCount);
+                Errors.Add($"Failed to get subdirectories from directory: {dirPath}. Reason: {ex.Message}");
+            }
+
             foreach (string subDirPath in subDirEntries)
             {
                 DirData subDirData = BuildFromDirectoryInternal(subDirPath, TNL.Branch, reportService, progressReporter, rootPath);
@@ -122,7 +187,7 @@ public class DirDataBuilder
             if (nodeLevel == TNL.Root)
             {
                 progressReporter.Clear();
-                reportService.Info($"Collected {DetectedFileCount} files in {swCollect.ElapsedMilliseconds / 1000.0:F3} s from the directory: {dirPath}");
+                reportService.Info($"Collected {DetectedFileCount} files in {swCollect.ElapsedMilliseconds / 1000.0:F3} s.");
             }
         }
         #endregion
@@ -131,12 +196,25 @@ public class DirDataBuilder
         return dirData;
     }
 
-    private void CalculateCrc32(DirData data)
+    private void CalculateCrc32(DirData data, IReportService reportService)
     {
         foreach (var file in data.Files)
         {
             string filePath = Path.Combine(data.AbsoluteDirectoryPath, file.FileName);
-            file.CRC = Crc32.ComputeFile(filePath);
+
+            try
+            {
+                if (ErrorHandlingTesting && ProcessedFileCount == 35)
+                {
+                    throw new Exception("Test exception at file 35");
+                }
+                file.CRC = Crc32.ComputeFile(filePath);
+            }
+            catch (Exception ex)
+            {
+                Interlocked.Increment(ref FailedFileCount);
+                Errors.Add($"Failed to calculate CRC32 for file: {filePath}. Reason: {ex.Message}");
+            }
 
             // Calculate processed file count for progress
             Interlocked.Increment(ref ProcessedFileCount);
@@ -144,7 +222,7 @@ public class DirDataBuilder
 
         foreach (var subDir in data.SubDirs)
         {
-            CalculateCrc32(subDir);
+            CalculateCrc32(subDir, reportService);
         }
     }
 }
