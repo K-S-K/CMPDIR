@@ -22,7 +22,7 @@ public class DirectoryProcessor
     {
         try
         {
-            DirData dirData = new DirDataBuilder().BuildFromDirectory(dirPath, TNL.Root, _reportService, _progressReporter);
+            DirData dirData = new DirDataBuilder(_reportService, _progressReporter).BuildFromDirectory(dirPath );
 
             jsonString = JsonSerializer.Serialize(
                 dirData,
@@ -46,8 +46,8 @@ public class DirectoryProcessor
     {
         try
         {
-            DirData sourceDirData = new DirDataBuilder().BuildFromDirectory(sourceDirPath, TNL.Root, _reportService, _progressReporter);
-            DirData targetDirData = new DirDataBuilder().BuildFromDirectory(targetDirPath, TNL.Root, _reportService, _progressReporter);
+            DirData sourceDirData = new DirDataBuilder(_reportService, _progressReporter).BuildFromDirectory(sourceDirPath);
+            DirData targetDirData = new DirDataBuilder(_reportService, _progressReporter).BuildFromDirectory(targetDirPath);
 
             Comparator.CompareDirData(sourceDirData, targetDirData);
 

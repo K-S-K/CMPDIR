@@ -13,39 +13,43 @@ public class DirDataBuilder
     private long DetectedFileCount = 0;
     private long ProcessedFileCount = 0;
     private long FailedFileCount = 0;
-    private List<string> Errors = [];
 
-    bool ErrorHandlingTesting = false;
+    private readonly List<string> Errors = [];
+    private readonly bool ErrorHandlingTesting = false;
 
+    private readonly IReportService _reportService;
+    private readonly IProgressReporter _progressReporter;
 
-    public DirData BuildFromDirectory(string dirPath, TNL nodeLevel, IReportService reportService, IProgressReporter progressReporter, string? rootPath = null)
+    public DirDataBuilder(IReportService reportService, IProgressReporter progressReporter)
     {
-        DirData dirData = BuildFromDirectoryInternal(dirPath, nodeLevel, reportService, progressReporter, rootPath);
+        _reportService = reportService;
+        _progressReporter = progressReporter;
+    }
 
-        Stopwatch swCalculate = new();
+
+    public DirData BuildFromDirectory(string dirPath)
+    {
+        // Build the directory data structure
+        DirData dirData = BuildFromDirectoryInternal(dirPath, TNL.Root);
+
 
         #region -> Calculate CRC32
         {
-            swCalculate.Start();
+            Stopwatch swCalculate = Stopwatch.StartNew();
 
             using System.Timers.Timer timer = new(500);
-            if (nodeLevel == TNL.Root)
+            timer.Elapsed += (_, _) =>
             {
-                timer.Elapsed += (_, _) =>
-                {
-                    progressReporter.Report(new ProgressInfo("Processing files", ProcessedFileCount, DetectedFileCount));
-                };
-                timer.Start();
-            }
+                _progressReporter.Report(new ProgressInfo(
+                    "Processing files", ProcessedFileCount, DetectedFileCount));
+            };
+            timer.Start();
 
-            CalculateCrc32(dirData, reportService);
+            CalculateCrc32(dirData, _reportService);
 
             swCalculate.Stop();
-            if (nodeLevel == TNL.Root)
-            {
-                progressReporter.Clear();
-                reportService.Info($"Calculated checksums in {swCalculate.ElapsedMilliseconds / 1000.0:F3} s.");
-            }
+            _progressReporter.Clear();
+            _reportService.Info($"Calculated checksums in {swCalculate.Elapsed.TotalSeconds:F3} s.");
         }
         #endregion
 
@@ -53,18 +57,19 @@ public class DirDataBuilder
         #region -> Error Reporting
         if (Errors.Count > 0)
         {
-            reportService.Error($"{Environment.NewLine}Completed with {FailedFileCount} failed file(s).");
+            _reportService.Error($"{Environment.NewLine}Completed with {FailedFileCount} failed file(s).");
             int errorCounter = 0;
             foreach (var error in Errors)
             {
-                reportService.Error($"[{++errorCounter}]: {error}");
+                _reportService.Error($"[{++errorCounter}]: {error}");
             }
-            reportService.Info("");
+            _reportService.Info("");
         }
         #endregion
 
         return dirData;
     }
+
     /// <summary>
     /// Build DirData from the specified directory path
     /// </summary>
@@ -74,12 +79,12 @@ public class DirDataBuilder
     /// <param name="progressReporter">The progress reporter for progress displaying</param>
     /// <param name="rootPath">The root path for relative path calculation</param>
     /// <returns>The built DirData</returns>
-    private DirData BuildFromDirectoryInternal(string dirPath, TNL nodeLevel, IReportService reportService, IProgressReporter progressReporter, string? rootPath = null)
+    private DirData BuildFromDirectoryInternal(string dirPath, TNL nodeLevel, string? rootPath = null)
     {
         if (nodeLevel == TNL.Root && rootPath == null)
         {
             rootPath = dirPath;
-            reportService.Info($"Scanning the directory: {rootPath}");
+            _reportService.Info($"Scanning the directory: {rootPath}");
         }
 
         DirData dirData = new()
@@ -99,7 +104,7 @@ public class DirDataBuilder
             {
                 timer.Elapsed += (_, _) =>
                 {
-                    progressReporter.Report(new ProgressInfo("Collecting files", DetectedFileCount));
+                    _progressReporter.Report(new ProgressInfo("Collecting files", DetectedFileCount));
                 };
                 timer.Start();
             }
@@ -177,7 +182,7 @@ public class DirDataBuilder
 
             foreach (string subDirPath in subDirEntries)
             {
-                DirData subDirData = BuildFromDirectoryInternal(subDirPath, TNL.Branch, reportService, progressReporter, rootPath);
+                DirData subDirData = BuildFromDirectoryInternal(subDirPath, TNL.Branch, rootPath);
                 subDirs.Add(subDirData);
             }
             dirData.SubDirs = subDirs.OrderBy(d => d.DirName).ToList();
@@ -186,8 +191,8 @@ public class DirDataBuilder
             swCollect.Stop();
             if (nodeLevel == TNL.Root)
             {
-                progressReporter.Clear();
-                reportService.Info($"Collected {DetectedFileCount} files in {swCollect.ElapsedMilliseconds / 1000.0:F3} s.");
+                _progressReporter.Clear();
+                _reportService.Info($"Collected {DetectedFileCount} files in {swCollect.ElapsedMilliseconds / 1000.0:F3} s.");
             }
         }
         #endregion
