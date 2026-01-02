@@ -4,14 +4,6 @@
   "DirName": "books.v2",
   "Files": [
     {
-      "FileName": ".DS_Store",
-      "RelativeDirectoryPath": "/",
-      "Size": 8196,
-      "CRC": 455843338,
-      "CmpResult": null,
-      "PropertyIndexValue": "8196-1B2B9E0A"
-    },
-    {
       "FileName": "NewFile.txt",
       "RelativeDirectoryPath": "/",
       "Size": 0,
@@ -155,14 +147,6 @@
       "DirName": "german language",
       "Files": [
         {
-          "FileName": ".DS_Store",
-          "RelativeDirectoryPath": "german language",
-          "Size": 6148,
-          "CRC": 1837629546,
-          "CmpResult": null,
-          "PropertyIndexValue": "6148-6D88006A"
-        },
-        {
           "FileName": "303733_384667988284186_1492357657_n.webp",
           "RelativeDirectoryPath": "german language",
           "Size": 28742,
@@ -281,16 +265,7 @@
       "AbsoluteDirectoryPath": "/Users/ksk-work/Projects/CMPDIR/Dat/books.v2/phone-books",
       "RelativeDirectoryPath": "phone-books",
       "DirName": "phone-books",
-      "Files": [
-        {
-          "FileName": ".DS_Store",
-          "RelativeDirectoryPath": "phone-books",
-          "Size": 6148,
-          "CRC": 1990296831,
-          "CmpResult": null,
-          "PropertyIndexValue": "6148-76A184FF"
-        }
-      ],
+      "Files": [],
       "SubDirs": [
         {
           "AbsoluteDirectoryPath": "/Users/ksk-work/Projects/CMPDIR/Dat/books.v2/phone-books/empty folder",
@@ -362,14 +337,6 @@
       "RelativeDirectoryPath": "инст-oeoe",
       "DirName": "инст-oeoe",
       "Files": [
-        {
-          "FileName": ".DS_Store",
-          "RelativeDirectoryPath": "инст-oeoe",
-          "Size": 6148,
-          "CRC": 1837629546,
-          "CmpResult": null,
-          "PropertyIndexValue": "6148-6D88006A"
-        },
         {
           "FileName": "McConnell. Code complete.djvu",
           "RelativeDirectoryPath": "инст-oeoe",

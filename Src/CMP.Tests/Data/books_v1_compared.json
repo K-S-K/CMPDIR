@@ -4,19 +4,6 @@
   "DirName": "books.v1",
   "Files": [
     {
-      "FileName": ".DS_Store",
-      "RelativeDirectoryPath": "/",
-      "Size": 8196,
-      "CRC": 4097513077,
-      "CmpResult": {
-        "Result": "Modified",
-        "FilePaths": [
-          ".DS_Store"
-        ]
-      },
-      "PropertyIndexValue": "8196-F43B1675"
-    },
-    {
       "FileName": "Немецкий Завьялова учебник.djvu",
       "RelativeDirectoryPath": "/",
       "Size": 6497607,
@@ -430,19 +417,6 @@
       "RelativeDirectoryPath": "phone-books",
       "DirName": "phone-books",
       "Files": [
-        {
-          "FileName": ".DS_Store",
-          "RelativeDirectoryPath": "phone-books",
-          "Size": 6148,
-          "CRC": 2901742718,
-          "CmpResult": {
-            "Result": "Modified",
-            "FilePaths": [
-              ".DS_Store"
-            ]
-          },
-          "PropertyIndexValue": "6148-ACF5147E"
-        },
         {
           "FileName": "NewFile 2.txt",
           "RelativeDirectoryPath": "phone-books",

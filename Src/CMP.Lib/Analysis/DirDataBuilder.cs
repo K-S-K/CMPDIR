@@ -129,6 +129,22 @@ public class DirDataBuilder
 
             foreach (string filePath in fileEntries)
             {
+                if ( // Skip Windows Thumbs.db
+                    filePath.EndsWith("Thumbs.db", StringComparison.OrdinalIgnoreCase) &&
+                    Path.GetFileName(filePath).Equals("Thumbs.db", StringComparison.OrdinalIgnoreCase)
+                   )
+                {
+                    continue;
+                }
+
+                if ( // Skip MacOs .DS_Store
+                    filePath.EndsWith(".DS_Store", StringComparison.OrdinalIgnoreCase) &&
+                    Path.GetFileName(filePath).Equals(".DS_Store", StringComparison.OrdinalIgnoreCase)
+                   )
+                {
+                    continue;
+                }
+
                 FileInfo fileInfo;
 
                 try
