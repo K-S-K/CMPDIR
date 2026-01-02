@@ -25,4 +25,10 @@
     <ProjectReference Include="..\CMP.Lib\CMP.Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Data/books_v2_directory_data.json" />
+    <EmbeddedResource Include="Data/books_v1_compared.json" />
+    <EmbeddedResource Include="Data/books_v2_compared.json" />
+  </ItemGroup>
+
 </Project>

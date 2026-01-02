@@ -1,18 +1,22 @@
-using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
-using CMP.Lib.Analysis;
+using System.Text.Encodings.Web;
+
 using CMP.Lib.Data;
+using CMP.Lib.Analysis;
+using CMP.Tests.Common;
 
 namespace CMP.Tests;
 
-public class DirectoryComparatorTests
+public class DirectoryComparatorTests : TestBase
 {
     [Fact]
     public void DirCompTest()
     {
-        string sourceDirPath = @"/Users/ksk-work/Projects/CMPDIR/Dat/books.v1";
-        string targetDirPath = @"/Users/ksk-work/Projects/CMPDIR/Dat/books.v2";
+        string dataDirectory = EnVar("CMPDIR_TEST_DATA_PATH");
+
+        string sourceDirPath = Path.Combine(dataDirectory, "books.v1");
+        string targetDirPath = Path.Combine(dataDirectory, "books.v2");
 
         DirData sourceDirData = DirDataBuilder.BuildFromDirectory(sourceDirPath);
         DirData targetDirData = DirDataBuilder.BuildFromDirectory(targetDirPath);
@@ -20,7 +24,7 @@ public class DirectoryComparatorTests
         Comparator.CompareDirData(sourceDirData, targetDirData);
 
         // Serialize results to JSON for inspection
-        string sourceJson = JsonSerializer.Serialize(
+        string sourceJsonActual = JsonSerializer.Serialize(
             sourceDirData,
             new JsonSerializerOptions
             {
@@ -29,7 +33,8 @@ public class DirectoryComparatorTests
             }
         );
 
-        string targetJson = JsonSerializer.Serialize(
+        // Serialize results to JSON for inspection
+        string targetJsonActual = JsonSerializer.Serialize(
             targetDirData,
             new JsonSerializerOptions
             {
@@ -38,12 +43,29 @@ public class DirectoryComparatorTests
             }
         );
 
-        string ExportDirectory = @"/Users/ksk-work/Projects/CMPDIR/Dat/";
-        
-        string sourceOutputPath = Path.Combine(ExportDirectory, "books_v1_compared.json");
-        File.WriteAllText(sourceOutputPath, sourceJson);
+        string sourceJsonExpected = GetResourceFileContent("CMP.Tests.Data.books_v1_compared.json");
+        string targetJsonExpected = GetResourceFileContent("CMP.Tests.Data.books_v2_compared.json");
 
-        string targetOutputPath = Path.Combine(ExportDirectory, "books_v2_compared.json");
-        File.WriteAllText(targetOutputPath, targetJson);
+        sourceJsonActual = sourceJsonActual.Replace(dataDirectory, "...");
+        sourceJsonExpected = sourceJsonExpected.Replace(dataDirectory, "...");
+
+        targetJsonActual = targetJsonActual.Replace(dataDirectory, "...");
+        targetJsonExpected = targetJsonExpected.Replace(dataDirectory, "...");
+
+        Assert.True(
+            CompareResult(
+                sourceJsonActual, sourceJsonExpected,
+                "CompareDirData",
+                "books_v1_compared.json",
+                out string sourcePath)
+        , sourcePath);
+
+        Assert.True(
+            CompareResult(
+                targetJsonActual, targetJsonExpected,
+                "CompareDirData",
+                "books_v2_compared.json",
+                out string targetPath)
+        , targetPath);
     }
 }

@@ -1,0 +1,649 @@
+﻿{
+  "AbsoluteDirectoryPath": ".../books.v1",
+  "RelativeDirectoryPath": "/",
+  "DirName": "books.v1",
+  "Files": [
+    {
+      "FileName": ".DS_Store",
+      "RelativeDirectoryPath": "/",
+      "Size": 8196,
+      "CRC": 4097513077,
+      "CmpResult": {
+        "Result": "Modified",
+        "FilePaths": [
+          ".DS_Store"
+        ]
+      },
+      "PropertyIndexValue": "8196-F43B1675"
+    },
+    {
+      "FileName": "Немецкий Завьялова учебник.djvu",
+      "RelativeDirectoryPath": "/",
+      "Size": 6497607,
+      "CRC": 3562682720,
+      "CmpResult": {
+        "Result": "Moved",
+        "FilePaths": [
+          "Немецкий Завьялова учебник.djvu"
+        ]
+      },
+      "PropertyIndexValue": "6497607-D45A3960"
+    },
+    {
+      "FileName": "немецкий пример 2.png",
+      "RelativeDirectoryPath": "/",
+      "Size": 445216,
+      "CRC": 1437291276,
+      "CmpResult": {
+        "Result": "Moved",
+        "FilePaths": [
+          "немецкий пример 2.png"
+        ]
+      },
+      "PropertyIndexValue": "445216-55AB530C"
+    },
+    {
+      "FileName": "немецкий пример.png",
+      "RelativeDirectoryPath": "/",
+      "Size": 991870,
+      "CRC": 4233437958,
+      "CmpResult": {
+        "Result": "Moved",
+        "FilePaths": [
+          "немецкий пример.png"
+        ]
+      },
+      "PropertyIndexValue": "991870-FC552306"
+    },
+    {
+      "FileName": "немного польского.docx",
+      "RelativeDirectoryPath": "/",
+      "Size": 14516,
+      "CRC": 2253122960,
+      "CmpResult": {
+        "Result": "Modified",
+        "FilePaths": [
+          "немного польского.docx"
+        ]
+      },
+      "PropertyIndexValue": "14516-864BED90"
+    },
+    {
+      "FileName": "Общая геология Коронкв.pdf",
+      "RelativeDirectoryPath": "/",
+      "Size": 45418757,
+      "CRC": 604144018,
+      "CmpResult": {
+        "Result": "Moved",
+        "FilePaths": [
+          "Общая геология Коронкв.pdf"
+        ]
+      },
+      "PropertyIndexValue": "45418757-24028192"
+    },
+    {
+      "FileName": "окончания артикли.jpeg",
+      "RelativeDirectoryPath": "/",
+      "Size": 38084,
+      "CRC": 813316427,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "окончания артикли.jpeg"
+        ]
+      },
+      "PropertyIndexValue": "38084-307A394B"
+    },
+    {
+      "FileName": "Определитель растений Кавказа (Гроссгейм А.А.) (z-lib.org).djvu",
+      "RelativeDirectoryPath": "/",
+      "Size": 12871901,
+      "CRC": 1858176087,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "Определитель растений Кавказа (Гроссгейм А.А.) (z-lib.org).djvu"
+        ]
+      },
+      "PropertyIndexValue": "12871901-6EC18457"
+    },
+    {
+      "FileName": "Поведение - эволюционный подход.fb2",
+      "RelativeDirectoryPath": "/",
+      "Size": 6383358,
+      "CRC": 2095878839,
+      "CmpResult": {
+        "Result": "Moved",
+        "FilePaths": [
+          "Поведение - эволюционный подход.fb2"
+        ]
+      },
+      "PropertyIndexValue": "6383358-7CEC92B7"
+    },
+    {
+      "FileName": "польский курсив.jpg",
+      "RelativeDirectoryPath": "/",
+      "Size": 49224,
+      "CRC": 2029569210,
+      "CmpResult": {
+        "Result": "Moved",
+        "FilePaths": [
+          "польский курсив-oeoe.jpg"
+        ]
+      },
+      "PropertyIndexValue": "49224-78F8C4BA"
+    },
+    {
+      "FileName": "Польский с нуля. mochalova.pdf",
+      "RelativeDirectoryPath": "/",
+      "Size": 7435716,
+      "CRC": 2949886592,
+      "CmpResult": {
+        "Result": "Deleted",
+        "FilePaths": []
+      },
+      "PropertyIndexValue": "7435716-AFD3B280"
+    },
+    {
+      "FileName": "Практический курс немецкого языка_Завьялова Ильина.pdf",
+      "RelativeDirectoryPath": "/",
+      "Size": 18272333,
+      "CRC": 685468718,
+      "CmpResult": {
+        "Result": "Deduplicated",
+        "FilePaths": [
+          "Практический курс немецкого языка_Завьялова Ильина.pdf"
+        ]
+      },
+      "PropertyIndexValue": "18272333-28DB6C2E"
+    },
+    {
+      "FileName": "Предложения на deutsch.txt",
+      "RelativeDirectoryPath": "/",
+      "Size": 10849,
+      "CRC": 719186744,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "Предложения на deutsch.txt"
+        ]
+      },
+      "PropertyIndexValue": "10849-2ADDEB38"
+    },
+    {
+      "FileName": "Пробники контрольных матан.pdf",
+      "RelativeDirectoryPath": "/",
+      "Size": 153601,
+      "CRC": 3298952114,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "Пробники контрольных матан.pdf"
+        ]
+      },
+      "PropertyIndexValue": "153601-C4A203B2"
+    },
+    {
+      "FileName": "Сам себе мастер книга.pdf",
+      "RelativeDirectoryPath": "/",
+      "Size": 339450,
+      "CRC": 1057974060,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "Сам себе мастер книга.pdf"
+        ]
+      },
+      "PropertyIndexValue": "339450-3F0F672C"
+    },
+    {
+      "FileName": "Сербско-хорватско-русский словарь ложных друзей переводчика.doc",
+      "RelativeDirectoryPath": "/",
+      "Size": 612352,
+      "CRC": 987073425,
+      "CmpResult": {
+        "Result": "Moved",
+        "FilePaths": [
+          "Сербско-хорватско-русскй словарь ложных друзей переводчика.doc"
+        ]
+      },
+      "PropertyIndexValue": "612352-3AD58B91"
+    },
+    {
+      "FileName": "Список животных, разрешенных к перевозке в качестве ручной клади.docx",
+      "RelativeDirectoryPath": "/",
+      "Size": 15111,
+      "CRC": 716333460,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "Список животных, разрешенных к перевозке в качестве ручной клади.docx"
+        ]
+      },
+      "PropertyIndexValue": "15111-2AB26194"
+    },
+    {
+      "FileName": "Список_слов_для_экзамена_на_права.pdf",
+      "RelativeDirectoryPath": "/",
+      "Size": 146723,
+      "CRC": 640773025,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "Список_слов_для_экзамена_на_права.pdf"
+        ]
+      },
+      "PropertyIndexValue": "146723-26316BA1"
+    },
+    {
+      "FileName": "Тест1 copy.docx",
+      "RelativeDirectoryPath": "/",
+      "Size": 13335,
+      "CRC": 2198152087,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "Тест1 copy.docx"
+        ]
+      },
+      "PropertyIndexValue": "13335-83052397"
+    },
+    {
+      "FileName": "Тест1.docx",
+      "RelativeDirectoryPath": "/",
+      "Size": 13335,
+      "CRC": 2198152087,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "Тест1.docx"
+        ]
+      },
+      "PropertyIndexValue": "13335-83052397"
+    },
+    {
+      "FileName": "труды ученых антропологии.pdf",
+      "RelativeDirectoryPath": "/",
+      "Size": 1506279,
+      "CRC": 2898707290,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "труды ученых антропологии.pdf"
+        ]
+      },
+      "PropertyIndexValue": "1506279-ACC6C35A"
+    },
+    {
+      "FileName": "Учебник-грузинского-языка-1977-Джавахия-Д.А..pdf",
+      "RelativeDirectoryPath": "/",
+      "Size": 46465189,
+      "CRC": 4279854731,
+      "CmpResult": {
+        "Result": "Deleted",
+        "FilePaths": []
+      },
+      "PropertyIndexValue": "46465189-FF19668B"
+    },
+    {
+      "FileName": "физикаконспектнаколлок.7z",
+      "RelativeDirectoryPath": "/",
+      "Size": 219387,
+      "CRC": 1257057342,
+      "CmpResult": {
+        "Result": "Equal",
+        "FilePaths": [
+          "физикаконспектнаколлок.7z"
+        ]
+      },
+      "PropertyIndexValue": "219387-4AED2C3E"
+    }
+  ],
+  "SubDirs": [
+    {
+      "AbsoluteDirectoryPath": ".../books.v1/german language",
+      "RelativeDirectoryPath": "german language",
+      "DirName": "german language",
+      "Files": [
+        {
+          "FileName": "303733_384667988284186_1492357657_n.webp",
+          "RelativeDirectoryPath": "german language",
+          "Size": 28742,
+          "CRC": 3846713057,
+          "CmpResult": {
+            "Result": "Equal",
+            "FilePaths": [
+              "303733_384667988284186_1492357657_n.webp"
+            ]
+          },
+          "PropertyIndexValue": "28742-E5482EE1"
+        },
+        {
+          "FileName": "ch.docx",
+          "RelativeDirectoryPath": "german language",
+          "Size": 18882,
+          "CRC": 1763413010,
+          "CmpResult": {
+            "Result": "Modified",
+            "FilePaths": [
+              "ch.docx"
+            ]
+          },
+          "PropertyIndexValue": "18882-691B8C12"
+        },
+        {
+          "FileName": "ch.pdf",
+          "RelativeDirectoryPath": "german language",
+          "Size": 35092,
+          "CRC": 2899941274,
+          "CmpResult": {
+            "Result": "Equal",
+            "FilePaths": [
+              "ch.pdf"
+            ]
+          },
+          "PropertyIndexValue": "35092-ACD9979A"
+        },
+        {
+          "FileName": "german-noun-gender.html",
+          "RelativeDirectoryPath": "german language",
+          "Size": 5211,
+          "CRC": 2301530505,
+          "CmpResult": {
+            "Result": "Equal",
+            "FilePaths": [
+              "german-noun-gender.html"
+            ]
+          },
+          "PropertyIndexValue": "5211-892E9189"
+        },
+        {
+          "FileName": "Masculine.docx",
+          "RelativeDirectoryPath": "german language",
+          "Size": 17353,
+          "CRC": 3102227117,
+          "CmpResult": {
+            "Result": "Modified",
+            "FilePaths": [
+              "Masculine.docx"
+            ]
+          },
+          "PropertyIndexValue": "17353-B8E83AAD"
+        },
+        {
+          "FileName": "predlog_deutsch16.jpg",
+          "RelativeDirectoryPath": "german language",
+          "Size": 32458,
+          "CRC": 2432470379,
+          "CmpResult": {
+            "Result": "Moved",
+            "FilePaths": [
+              "predlog_deutsch16.jpg"
+            ]
+          },
+          "PropertyIndexValue": "32458-90FC8D6B"
+        },
+        {
+          "FileName": "present simple verb schema german.docx",
+          "RelativeDirectoryPath": "german language",
+          "Size": 13366,
+          "CRC": 338391568,
+          "CmpResult": {
+            "Result": "Equal",
+            "FilePaths": [
+              "present simple verb schema german.docx"
+            ]
+          },
+          "PropertyIndexValue": "13366-142B7210"
+        },
+        {
+          "FileName": "Практический курс немецкого языка_Завьялова Ильина.pdf",
+          "RelativeDirectoryPath": "german language",
+          "Size": 18272333,
+          "CRC": 685468718,
+          "CmpResult": {
+            "Result": "Equal",
+            "FilePaths": [
+              "Практический курс немецкого языка_Завьялова Ильина.pdf"
+            ]
+          },
+          "PropertyIndexValue": "18272333-28DB6C2E"
+        },
+        {
+          "FileName": "Тест1.docx",
+          "RelativeDirectoryPath": "german language",
+          "Size": 15779,
+          "CRC": 3664807732,
+          "CmpResult": {
+            "Result": "Equal",
+            "FilePaths": [
+              "Тест1.docx"
+            ]
+          },
+          "PropertyIndexValue": "15779-DA708734"
+        }
+      ],
+      "SubDirs": []
+    },
+    {
+      "AbsoluteDirectoryPath": ".../books.v1/phone-books",
+      "RelativeDirectoryPath": "phone-books",
+      "DirName": "phone-books",
+      "Files": [
+        {
+          "FileName": ".DS_Store",
+          "RelativeDirectoryPath": "phone-books",
+          "Size": 6148,
+          "CRC": 2901742718,
+          "CmpResult": {
+            "Result": "Modified",
+            "FilePaths": [
+              ".DS_Store"
+            ]
+          },
+          "PropertyIndexValue": "6148-ACF5147E"
+        },
+        {
+          "FileName": "NewFile 2.txt",
+          "RelativeDirectoryPath": "phone-books",
+          "Size": 0,
+          "CRC": 0,
+          "CmpResult": {
+            "Result": "Moved",
+            "FilePaths": [
+              "NewFile.txt"
+            ]
+          },
+          "PropertyIndexValue": "0-00000000"
+        },
+        {
+          "FileName": "NewFile.txt",
+          "RelativeDirectoryPath": "phone-books",
+          "Size": 0,
+          "CRC": 0,
+          "CmpResult": {
+            "Result": "Moved",
+            "FilePaths": [
+              "NewFile-oeoe.txt"
+            ]
+          },
+          "PropertyIndexValue": "0-00000000"
+        }
+      ],
+      "SubDirs": [
+        {
+          "AbsoluteDirectoryPath": ".../books.v1/phone-books/инст",
+          "RelativeDirectoryPath": "phone-books/инст",
+          "DirName": "инст",
+          "Files": [
+            {
+              "FileName": "Cormen. Algorithms Unlocked.pdf",
+              "RelativeDirectoryPath": "phone-books/инст",
+              "Size": 2619365,
+              "CRC": 2971911768,
+              "CmpResult": {
+                "Result": "Equal",
+                "FilePaths": [
+                  "Cormen. Algorithms Unlocked.pdf"
+                ]
+              },
+              "PropertyIndexValue": "2619365-B123C658"
+            },
+            {
+              "FileName": "McConnell. Code complete.djvu",
+              "RelativeDirectoryPath": "phone-books/инст",
+              "Size": 21281566,
+              "CRC": 174401063,
+              "CmpResult": {
+                "Result": "Equal",
+                "FilePaths": [
+                  "McConnell. Code complete.djvu"
+                ]
+              },
+              "PropertyIndexValue": "21281566-0A652627"
+            },
+            {
+              "FileName": "Матан Демидович задачник.pdf",
+              "RelativeDirectoryPath": "phone-books/инст",
+              "Size": 17394791,
+              "CRC": 222920931,
+              "CmpResult": {
+                "Result": "Equal",
+                "FilePaths": [
+                  "Матан Демидович задачник.pdf"
+                ]
+              },
+              "PropertyIndexValue": "17394791-0D4980E3"
+            },
+            {
+              "FileName": "Немецкий Завьялова учебник.djvu",
+              "RelativeDirectoryPath": "phone-books/инст",
+              "Size": 6497607,
+              "CRC": 3562682720,
+              "CmpResult": {
+                "Result": "Equal",
+                "FilePaths": [
+                  "Немецкий Завьялова учебник.djvu"
+                ]
+              },
+              "PropertyIndexValue": "6497607-D45A3960"
+            },
+            {
+              "FileName": "Основы теории графов.djvu",
+              "RelativeDirectoryPath": "phone-books/инст",
+              "Size": 13256768,
+              "CRC": 1583037113,
+              "CmpResult": {
+                "Result": "Equal",
+                "FilePaths": [
+                  "Основы теории графов.djvu"
+                ]
+              },
+              "PropertyIndexValue": "13256768-5E5B3AB9"
+            },
+            {
+              "FileName": "Теория чисел 1966.djvu",
+              "RelativeDirectoryPath": "phone-books/инст",
+              "Size": 5886613,
+              "CRC": 916998538,
+              "CmpResult": {
+                "Result": "Equal",
+                "FilePaths": [
+                  "Теория чисел 1966.djvu"
+                ]
+              },
+              "PropertyIndexValue": "5886613-36A8498A"
+            }
+          ],
+          "SubDirs": []
+        }
+      ]
+    },
+    {
+      "AbsoluteDirectoryPath": ".../books.v1/инст",
+      "RelativeDirectoryPath": "инст",
+      "DirName": "инст",
+      "Files": [
+        {
+          "FileName": "Cormen. Algorithms Unlocked.pdf",
+          "RelativeDirectoryPath": "инст",
+          "Size": 2619365,
+          "CRC": 2971911768,
+          "CmpResult": {
+            "Result": "Deduplicated",
+            "FilePaths": [
+              "Cormen. Algorithms Unlocked.pdf"
+            ]
+          },
+          "PropertyIndexValue": "2619365-B123C658"
+        },
+        {
+          "FileName": "McConnell. Code complete.djvu",
+          "RelativeDirectoryPath": "инст",
+          "Size": 21281566,
+          "CRC": 174401063,
+          "CmpResult": {
+            "Result": "Moved",
+            "FilePaths": [
+              "McConnell. Code complete.djvu"
+            ]
+          },
+          "PropertyIndexValue": "21281566-0A652627"
+        },
+        {
+          "FileName": "Матан Демидович задачник.pdf",
+          "RelativeDirectoryPath": "инст",
+          "Size": 17394791,
+          "CRC": 222920931,
+          "CmpResult": {
+            "Result": "Deduplicated",
+            "FilePaths": [
+              "Матан Демидович задачник.pdf"
+            ]
+          },
+          "PropertyIndexValue": "17394791-0D4980E3"
+        },
+        {
+          "FileName": "Немецкий Завьялова учебник.djvu",
+          "RelativeDirectoryPath": "инст",
+          "Size": 6497607,
+          "CRC": 3562682720,
+          "CmpResult": {
+            "Result": "Moved",
+            "FilePaths": [
+              "Немецкий Завьялова учебник.djvu"
+            ]
+          },
+          "PropertyIndexValue": "6497607-D45A3960"
+        },
+        {
+          "FileName": "Основы теории графов.djvu",
+          "RelativeDirectoryPath": "инст",
+          "Size": 13256768,
+          "CRC": 1583037113,
+          "CmpResult": {
+            "Result": "Moved",
+            "FilePaths": [
+              "Основы теории графов.djvu"
+            ]
+          },
+          "PropertyIndexValue": "13256768-5E5B3AB9"
+        },
+        {
+          "FileName": "Теория чисел 1966.djvu",
+          "RelativeDirectoryPath": "инст",
+          "Size": 5886613,
+          "CRC": 916998538,
+          "CmpResult": {
+            "Result": "Moved",
+            "FilePaths": [
+              "Теория чисел 1966.djvu"
+            ]
+          },
+          "PropertyIndexValue": "5886613-36A8498A"
+        }
+      ],
+      "SubDirs": []
+    }
+  ]
+}
