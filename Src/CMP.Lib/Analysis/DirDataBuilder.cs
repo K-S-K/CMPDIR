@@ -10,9 +10,12 @@ namespace CMP.Lib.Analysis;
 /// </summary>
 public class DirDataBuilder
 {
+    private long DetectedFileSize = 0;
+    private long ProcessedFileSize = 0;
     private long DetectedFileCount = 0;
     private long ProcessedFileCount = 0;
     private long FailedFileCount = 0;
+    private FileData? _currentFile = null;
 
     private readonly List<string> Errors = [];
     private readonly bool ErrorHandlingTesting = false;
@@ -41,7 +44,7 @@ public class DirDataBuilder
             timer.Elapsed += (_, _) =>
             {
                 _progressReporter.Report(new ProgressInfo(
-                    "Processing files", swCalculate.Elapsed, ProcessedFileCount, DetectedFileCount));
+                    "Processed", swCalculate.Elapsed, ProcessedFileCount, DetectedFileCount, ProcessedFileSize, DetectedFileSize, _currentFile));
             };
             timer.Start();
 
@@ -49,7 +52,7 @@ public class DirDataBuilder
 
             swCalculate.Stop();
             _progressReporter.Clear();
-            _reportService.Info($"Calculated checksums in {swCalculate.Elapsed.TotalSeconds:F3} s.");
+            _reportService.Info($"Calculated checksums during {ConsoleProgressReporter.DurationToStringMs(swCalculate.Elapsed)}");
         }
         #endregion
 
@@ -104,14 +107,14 @@ public class DirDataBuilder
             {
                 timer.Elapsed += (_, _) =>
                 {
-                    _progressReporter.Report(new ProgressInfo("Collecting files", swCollect.Elapsed, DetectedFileCount));
+                    _progressReporter.Report(new ProgressInfo("Collecting files", swCollect.Elapsed, DetectedFileCount, null, DetectedFileSize, null));
                 };
                 timer.Start();
             }
 
             // Collect files
             List<FileData> files = [];
-            string[] fileEntries = [];
+            string[] fileNames = [];
             try
             {
                 if (ErrorHandlingTesting && dirPath.Contains("Weather Station"))
@@ -119,7 +122,7 @@ public class DirDataBuilder
                     throw new Exception("Test exception at 'Weather Station'");
                 }
 
-                fileEntries = Directory.GetFiles(dirPath);
+                fileNames = Directory.GetFiles(dirPath);
             }
             catch (Exception ex)
             {
@@ -127,7 +130,7 @@ public class DirDataBuilder
                 Errors.Add($"Failed to get files from directory: {dirPath}. Reason: {ex.Message}");
             }
 
-            foreach (string filePath in fileEntries)
+            foreach (string filePath in fileNames)
             {
                 if ( // Skip Windows Thumbs.db
                     filePath.EndsWith("Thumbs.db", StringComparison.OrdinalIgnoreCase) &&
@@ -173,6 +176,9 @@ public class DirDataBuilder
 
                 // Calculate collecting files for progress
                 Interlocked.Increment(ref DetectedFileCount);
+
+                // Accumulate detected file size
+                Interlocked.Add(ref DetectedFileSize, fileInfo.Length);
             }
             dirData.Files = files.OrderBy(f => f.FileName).ToList();
 
@@ -208,7 +214,7 @@ public class DirDataBuilder
             if (nodeLevel == TNL.Root)
             {
                 _progressReporter.Clear();
-                _reportService.Info($"Collected {DetectedFileCount} files in {swCollect.ElapsedMilliseconds / 1000.0:F3} s.");
+                _reportService.Info($"Collected {DetectedFileCount} file(s) with total size {ConsoleProgressReporter.SizeWithSuffix(DetectedFileSize)} during {ConsoleProgressReporter.DurationToStringMs(swCollect.Elapsed)}");
             }
         }
         #endregion
@@ -219,8 +225,9 @@ public class DirDataBuilder
 
     private void CalculateCrc32(DirData data, IReportService reportService)
     {
-        foreach (var file in data.Files)
+        foreach (FileData file in data.Files)
         {
+            _currentFile = file;
             string filePath = Path.Combine(data.AbsoluteDirectoryPath, file.FileName);
 
             try
@@ -239,6 +246,9 @@ public class DirDataBuilder
 
             // Calculate processed file count for progress
             Interlocked.Increment(ref ProcessedFileCount);
+
+            // Accumulate processed file size
+            Interlocked.Add(ref ProcessedFileSize, file.Size);
         }
 
         foreach (var subDir in data.SubDirs)
