@@ -1,11 +1,36 @@
-﻿namespace CMP.Lib.Diagnostics;
+﻿using CMP.Lib.Data;
+using System.Diagnostics;
+
+namespace CMP.Lib.Diagnostics;
 
 public sealed class ConsoleProgressReporter : IProgressReporter
 {
     private readonly ConsoleLineUpdater _updater = new();
+    private FileData? _lastReportedFile = null;
+    private Stopwatch _stopwatch = new();
 
     public void Report(ProgressInfo info)
     {
+        string longProcessingFileName = string.Empty;
+
+        // If the current file if handled for more than 5 seconds, print its name
+        if (info.File != null)
+        {
+            if (_lastReportedFile != info.File)
+            {
+                _stopwatch.Restart();
+                _lastReportedFile = info.File;
+            }
+            else if (_stopwatch.Elapsed.TotalSeconds >= 5)
+            {
+                longProcessingFileName=$"    Processing file: {info.File.FileName}";
+            }
+        }
+        else
+        {
+            _lastReportedFile = null;
+        }
+
         string text = info.TotalCount is null || info.TotalSize is null
             ? $"{info.Phase}...    {info.CurrentCount:N0} files, {SizeWithSuffix(info.CurrentSize)}"
             : $"{info.Phase} {info.CurrentCount * 100.0 / info.TotalCount:0.0}%,    {info.CurrentCount} of {info.TotalCount} files,    {SizeWithSuffix(info.CurrentSize)} of {SizeWithSuffix(info.TotalSize ?? 0)} data,";
@@ -14,7 +39,7 @@ public sealed class ConsoleProgressReporter : IProgressReporter
         var originalColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Yellow;
 
-        _updater.Update($"{text}    elapsed time: {DurationToString(info.Elapsed)}");
+        _updater.Update($"{text}    elapsed time: {DurationToString(info.Elapsed)}{longProcessingFileName}");
 
         // Restore original color
         Console.ForegroundColor = originalColor;

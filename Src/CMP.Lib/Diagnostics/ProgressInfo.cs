@@ -1,4 +1,6 @@
-﻿namespace CMP.Lib.Diagnostics;
+﻿using CMP.Lib.Data;
+
+namespace CMP.Lib.Diagnostics;
 
 /// <summary>
 /// The information about current stage progress
@@ -9,11 +11,13 @@
 /// <param name="TotalCount"></param>
 /// <param name="CurrentSize"></param>
 /// <param name="TotalSize"></param>
+/// <param name="File"></param>
 public sealed record ProgressInfo(
     string Phase,
     TimeSpan Elapsed,
     long CurrentCount,
     long? TotalCount,
     long CurrentSize,
-    long? TotalSize
+    long? TotalSize,
+    FileData? File= null
 );
