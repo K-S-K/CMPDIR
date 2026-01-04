@@ -13,5 +13,5 @@ dotnet CMP.Cmd.dll ../Tests/net10.0/cs ../Tests/net10.0/es ./diff.json
 ```
 
 ```bash
-dotnet build ~/Projects/CMPDIR/Src/ --no-incremental && clear && dotnet CMP.Cmd.dll '/Users/ksk-work/Fotki/2025.12.21 Zugspize' ./diff.json
+dotnet build ~/Projects/CMPDIR/Src/ --no-incremental && clear && dotnet ~/Projects/CMPDIR/Bin/Debug/net10.0/CMP.Cmd.dll '/Users/ksk-work/Fotki/2025.12.21 Zugspize' ./diff.json
 ```

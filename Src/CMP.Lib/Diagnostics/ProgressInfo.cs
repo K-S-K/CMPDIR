@@ -5,11 +5,15 @@
 /// </summary>
 /// <param name="Phase"></param>
 /// <param name="Elapsed"></param>
-/// <param name="Current"></param>
-/// <param name="Total"></param>
+/// <param name="CurrentCount"></param>
+/// <param name="TotalCount"></param>
+/// <param name="CurrentSize"></param>
+/// <param name="TotalSize"></param>
 public sealed record ProgressInfo(
     string Phase,
     TimeSpan Elapsed,
-    long Current,
-    long? Total = null
+    long CurrentCount,
+    long? TotalCount,
+    long CurrentSize,
+    long? TotalSize
 );
