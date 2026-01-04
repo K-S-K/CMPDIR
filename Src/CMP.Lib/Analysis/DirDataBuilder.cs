@@ -49,7 +49,7 @@ public class DirDataBuilder
 
             swCalculate.Stop();
             _progressReporter.Clear();
-            _reportService.Info($"Calculated checksums in {swCalculate.Elapsed.TotalSeconds:F3} s.");
+            _reportService.Info($"Calculated checksums during {swCalculate.Elapsed.Hours:00}:{swCalculate.Elapsed.Minutes:00}:{swCalculate.Elapsed.Seconds:00}.{(int)swCalculate.Elapsed.Milliseconds:000}");
         }
         #endregion
 
@@ -208,7 +208,7 @@ public class DirDataBuilder
             if (nodeLevel == TNL.Root)
             {
                 _progressReporter.Clear();
-                _reportService.Info($"Collected {DetectedFileCount} files in {swCollect.ElapsedMilliseconds / 1000.0:F3} s.");
+                _reportService.Info($"Collected {DetectedFileCount} file(s) during {swCollect.Elapsed.Hours:00}:{swCollect.Elapsed.Minutes:00}:{swCollect.Elapsed.Seconds:00}.{(int)swCollect.Elapsed.Milliseconds:000}");
             }
         }
         #endregion
