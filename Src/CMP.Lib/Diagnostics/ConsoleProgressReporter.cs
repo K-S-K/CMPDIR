@@ -23,7 +23,7 @@ public sealed class ConsoleProgressReporter : IProgressReporter
             }
             else if (_stopwatch.Elapsed.TotalSeconds >= 5)
             {
-                longProcessingFileName=$"    Processing file: {info.File.FileName}";
+                longProcessingFileName = $"    Processing file: {info.File.FileName}";
             }
         }
         else
@@ -33,7 +33,7 @@ public sealed class ConsoleProgressReporter : IProgressReporter
 
         string text = info.TotalCount is null || info.TotalSize is null
             ? $"{info.Phase}...    {info.CurrentCount:N0} files, {SizeWithSuffix(info.CurrentSize)}"
-            : $"{info.Phase} {info.CurrentCount * 100.0 / info.TotalCount:0.0}%,    {info.CurrentCount} of {info.TotalCount} files,    {SizeWithSuffix(info.CurrentSize)} of {SizeWithSuffix(info.TotalSize ?? 0)} data,";
+            : $"{info.Phase}    {info.CurrentCount} of {info.TotalCount} files, {PercentageByFiles(info)},    {SizeWithSuffix(info.CurrentSize)} of {SizeWithSuffix(info.TotalSize ?? 0)} data, {PercentageBySize(info)},";
 
         // Remember current color and set to yellow
         var originalColor = Console.ForegroundColor;
@@ -45,7 +45,63 @@ public sealed class ConsoleProgressReporter : IProgressReporter
         Console.ForegroundColor = originalColor;
     }
 
+    /// <summary>
+    /// Clears the progress report from the console.
+    /// </summary>
     public void Clear() => _updater.Clear();
+
+    /// <summary>
+    /// Returns a string representing the percentage of completion based on file counts.
+    /// </summary>
+    /// <param name="info">The progress information containing current and total counts.</param>
+    /// <returns>A string representing the percentage of completion.</returns>
+    private string PercentageByFiles(ProgressInfo info)
+    {
+        string result;
+
+        try
+        {
+            result = Percentage(info.CurrentCount, info.TotalCount ?? 0);
+        }
+        catch (Exception)
+        {
+            result = "N/A";
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Returns a string representing the percentage of completion based on file sizes.
+    /// </summary>
+    /// <param name="info">The progress information containing current and total sizes.</param>
+    /// <returns>A string representing the percentage of completion.</returns>
+    private string PercentageBySize(ProgressInfo info)
+    {
+        string result;
+        try
+        {
+            result = Percentage(info.CurrentSize, info.TotalSize ?? 0);
+        }
+        catch (Exception)
+        {
+            result = "N/A";
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Returns a string representing the percentage of completion.
+    /// </summary>
+    /// <param name="current">The current value.</param>
+    /// <param name="total">The total value.</param>
+    /// <returns>A string representing the percentage of completion.</returns>
+    private string Percentage(long current, long total)
+    {
+        if (total == 0) return "0.0%";
+        return $"{current * 100.0 / total:0.0}%";
+    }
 
     /// <summary>
     /// Returns a human-readable string representation of a file size.
