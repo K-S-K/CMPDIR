@@ -43,7 +43,7 @@ public static class Crc32
     {
         uint crc = 0xFFFFFFFFu;
 
-        const int BufferSize = 1024 * 1024 * 8; // 8 MB
+        const int BufferSize = 1024 * 1024 * 64; // 64 MB
         byte[] buffer = new byte[BufferSize];
 
         using var stream = new FileStream(
