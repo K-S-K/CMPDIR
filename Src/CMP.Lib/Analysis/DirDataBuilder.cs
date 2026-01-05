@@ -15,12 +15,9 @@ public class DirDataBuilder
     private long DetectedFileSize = 0;
     private long ProcessedFileSize = 0;
     private long DetectedFileCount = 0;
-    private long ProcessedFileCount = 0;
-    private long FailedFileCount = 0;
     private FileData? _currentFile = null;
 
-    private readonly bool ErrorHandlingTesting = false;
-    private readonly ConcurrentStack<AnalysisException> Errors = [];
+    private readonly FileSystem fileSystem = new();
 
     private readonly IReportService _reportService;
     private readonly IProgressReporter _progressReporter;
@@ -46,7 +43,7 @@ public class DirDataBuilder
             timer.Elapsed += (_, _) =>
             {
                 _progressReporter.Report(new ProgressInfo(
-                    "Processed", swCalculate.Elapsed, ProcessedFileCount, DetectedFileCount, ProcessedFileSize, DetectedFileSize, _currentFile));
+                    "Processed", swCalculate.Elapsed, fileSystem.ProcessedFileCount, DetectedFileCount, ProcessedFileSize, DetectedFileSize, _currentFile));
             };
             timer.Start();
 
@@ -60,11 +57,11 @@ public class DirDataBuilder
 
 
         #region -> Error Reporting
-        if (Errors.Count > 0)
+        if (fileSystem.Errors.Count() > 0)
         {
-            _reportService.Error($"{Environment.NewLine}Completed with {FailedFileCount} failed file(s).");
+            _reportService.Error($"{Environment.NewLine}Completed with {fileSystem.FailedFileCount} failed file(s).");
             int errorCounter = 0;
-            foreach (var error in Errors)
+            foreach (var error in fileSystem.Errors)
             {
                 _reportService.Error($"[{++errorCounter}]: {error}");
             }
@@ -73,88 +70,10 @@ public class DirDataBuilder
         #endregion
 
 
-        errors = Errors.Select(e => e.ToString()).ToList();
+        errors = fileSystem.Errors.Select(e => e.ToString()).ToList();
         return dirData;
     }
 
-    private string[] GetDirectoryEntries(string dirPath)
-    {
-        string[] result;
-        try
-        {
-            if (ErrorHandlingTesting && dirPath.Contains("Entrance"))
-            {
-                throw new Exception("Test exception at 'Entrance'");
-            }
-
-            result = Directory.GetDirectories(dirPath);
-        }
-        catch (Exception ex)
-        {
-            Interlocked.Increment(ref FailedFileCount);
-            throw new DirectoryListingException(ex, dirPath);
-        }
-        return result;
-    }
-
-    private string[] GetFileNames(string dirPath)
-    {
-        string[] result;
-        try
-        {
-            if (ErrorHandlingTesting && dirPath.Contains("Weather Station"))
-            {
-                throw new Exception("Test exception at 'Weather Station'");
-            }
-
-            result = Directory.GetFiles(dirPath);
-        }
-        catch (Exception ex)
-        {
-            Interlocked.Increment(ref FailedFileCount);
-            throw new FileListingException(ex, dirPath);
-        }
-        return result;
-    }
-
-    private FileInfo GetFileInfo(string filePath)
-    {
-        FileInfo fileInfo;
-        try
-        {
-            if (ErrorHandlingTesting && filePath.Contains("DSCF1898.jpg"))
-            {
-                throw new Exception("Test exception at 'DSCF1898.jpg'");
-            }
-            fileInfo = new(filePath);
-        }
-        catch (Exception ex)
-        {
-            Interlocked.Increment(ref FailedFileCount);
-            throw new FileMetadataReadException(ex, filePath);
-        }
-        return fileInfo;
-    }
-
-    private uint ComputeCrc32(string filePath)
-    {
-        uint crc;
-        try
-        {
-            if (ErrorHandlingTesting && ProcessedFileCount == 35)
-            {
-                throw new Exception("Test exception at file 35");
-            }
-
-            crc = Crc32.ComputeFile(filePath);
-        }
-        catch (Exception ex)
-        {
-            Interlocked.Increment(ref FailedFileCount);
-            throw new FileContentReadException(ex, filePath);
-        }
-        return crc;
-    }
 
     /// <summary>
     /// Build DirData from the specified directory path
@@ -197,15 +116,7 @@ public class DirDataBuilder
 
             // Collect files
             List<FileData> files = [];
-            string[] fileNames = [];
-            try
-            {
-                fileNames = GetFileNames(dirPath);
-            }
-            catch (AnalysisException ex)
-            {
-                Errors.Push(ex);
-            }
+            fileSystem.TryGetFileNames(dirPath, out string[] fileNames);
 
             foreach (string filePath in fileNames)
             {
@@ -227,13 +138,8 @@ public class DirDataBuilder
 
                 FileInfo fileInfo;
 
-                try
+                if (!fileSystem.TryGetFileInfo(filePath, out fileInfo!))
                 {
-                    fileInfo = GetFileInfo(filePath);
-                }
-                catch (AnalysisException ex)
-                {
-                    Errors.Push(ex);
                     continue;
                 }
 
@@ -257,15 +163,7 @@ public class DirDataBuilder
             List<DirData> subDirs = [];
             string[] subDirEntries = [];
 
-            try
-            {
-                subDirEntries = GetDirectoryEntries(dirPath);
-            }
-            catch (AnalysisException ex)
-            {
-                Interlocked.Increment(ref FailedFileCount);
-                Errors.Push(ex);
-            }
+            fileSystem.TryGetDirectoryEntries(dirPath, out subDirEntries);
 
             foreach (string subDirPath in subDirEntries)
             {
@@ -295,17 +193,8 @@ public class DirDataBuilder
             _currentFile = file;
             string filePath = Path.Combine(data.AbsoluteDirectoryPath, file.FileName);
 
-            try
-            {
-                file.CRC = ComputeCrc32(filePath);
-            }
-            catch (AnalysisException ex)
-            {
-                Errors.Push(ex);
-            }
-
-            // Calculate processed file count for progress
-            Interlocked.Increment(ref ProcessedFileCount);
+            fileSystem.TryComputeCrc32(filePath, out uint crc);
+            file.CRC = crc;
 
             // Accumulate processed file size
             Interlocked.Add(ref ProcessedFileSize, file.Size);
