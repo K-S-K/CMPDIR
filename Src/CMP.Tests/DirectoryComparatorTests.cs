@@ -23,8 +23,8 @@ public class DirectoryComparatorTests : TestBase
         IReportService reportService = new DiagnosticsReportService();
         IProgressReporter progressReporter = new DiagnosticsProgressReporter();
 
-        DirData sourceDirData = new DirDataBuilder(reportService, progressReporter).BuildFromDirectory(sourceDirPath);
-        DirData targetDirData = new DirDataBuilder(reportService, progressReporter).BuildFromDirectory(targetDirPath);
+        DirData sourceDirData = new DirDataBuilder(reportService, progressReporter).BuildFromDirectory(sourceDirPath, out _);
+        DirData targetDirData = new DirDataBuilder(reportService, progressReporter).BuildFromDirectory(targetDirPath, out _);
 
         Comparator.CompareDirData(sourceDirData, targetDirData);
 

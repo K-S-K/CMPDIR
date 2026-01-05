@@ -19,9 +19,8 @@ public class DirDataBuilder
     private long FailedFileCount = 0;
     private FileData? _currentFile = null;
 
-    private readonly List<string> Errors = [];
     private readonly bool ErrorHandlingTesting = false;
-    private readonly ConcurrentStack<AnalysisException> _Errors = [];
+    private readonly ConcurrentStack<AnalysisException> Errors = [];
 
     private readonly IReportService _reportService;
     private readonly IProgressReporter _progressReporter;
@@ -33,7 +32,7 @@ public class DirDataBuilder
     }
 
 
-    public DirData BuildFromDirectory(string dirPath)
+    public DirData BuildFromDirectory(string dirPath, out IEnumerable<string> errors)
     {
         // Build the directory data structure
         DirData dirData = BuildFromDirectoryInternal(dirPath, TNL.Root);
@@ -73,6 +72,8 @@ public class DirDataBuilder
         }
         #endregion
 
+
+        errors = Errors.Select(e => e.ToString()).ToList();
         return dirData;
     }
 
@@ -203,7 +204,7 @@ public class DirDataBuilder
             }
             catch (AnalysisException ex)
             {
-                Errors.Add(ex.ToString());
+                Errors.Push(ex);
             }
 
             foreach (string filePath in fileNames)
@@ -232,7 +233,7 @@ public class DirDataBuilder
                 }
                 catch (AnalysisException ex)
                 {
-                    Errors.Add(ex.ToString());
+                    Errors.Push(ex);
                     continue;
                 }
 
@@ -263,7 +264,7 @@ public class DirDataBuilder
             catch (AnalysisException ex)
             {
                 Interlocked.Increment(ref FailedFileCount);
-                Errors.Add(ex.ToString());
+                Errors.Push(ex);
             }
 
             foreach (string subDirPath in subDirEntries)
@@ -300,7 +301,7 @@ public class DirDataBuilder
             }
             catch (AnalysisException ex)
             {
-                Errors.Add(ex.ToString());
+                Errors.Push(ex);
             }
 
             // Calculate processed file count for progress
