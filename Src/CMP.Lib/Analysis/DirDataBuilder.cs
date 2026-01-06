@@ -1,7 +1,9 @@
+using System.Collections.Concurrent;
 using System.Diagnostics;
 
 using CMP.Lib.Data;
 using CMP.Lib.Diagnostics;
+using CMP.Lib.Analysis.FailureControl;
 
 namespace CMP.Lib.Analysis;
 
@@ -13,12 +15,9 @@ public class DirDataBuilder
     private long DetectedFileSize = 0;
     private long ProcessedFileSize = 0;
     private long DetectedFileCount = 0;
-    private long ProcessedFileCount = 0;
-    private long FailedFileCount = 0;
     private FileData? _currentFile = null;
 
-    private readonly List<string> Errors = [];
-    private readonly bool ErrorHandlingTesting = false;
+    private readonly FileSystem fileSystem = new();
 
     private readonly IReportService _reportService;
     private readonly IProgressReporter _progressReporter;
@@ -30,7 +29,7 @@ public class DirDataBuilder
     }
 
 
-    public DirData BuildFromDirectory(string dirPath)
+    public DirData BuildFromDirectory(string dirPath, out IEnumerable<string> errors)
     {
         // Build the directory data structure
         DirData dirData = BuildFromDirectoryInternal(dirPath, TNL.Root);
@@ -44,7 +43,7 @@ public class DirDataBuilder
             timer.Elapsed += (_, _) =>
             {
                 _progressReporter.Report(new ProgressInfo(
-                    "Processed", swCalculate.Elapsed, ProcessedFileCount, DetectedFileCount, ProcessedFileSize, DetectedFileSize, _currentFile));
+                    "Processed", swCalculate.Elapsed, fileSystem.ProcessedFileCount, DetectedFileCount, ProcessedFileSize, DetectedFileSize, _currentFile));
             };
             timer.Start();
 
@@ -58,11 +57,11 @@ public class DirDataBuilder
 
 
         #region -> Error Reporting
-        if (Errors.Count > 0)
+        if (fileSystem.Errors.Count() > 0)
         {
-            _reportService.Error($"{Environment.NewLine}Completed with {FailedFileCount} failed file(s).");
+            _reportService.Error($"{Environment.NewLine}Completed with {fileSystem.FailedFileCount} failed file(s).");
             int errorCounter = 0;
-            foreach (var error in Errors)
+            foreach (var error in fileSystem.Errors)
             {
                 _reportService.Error($"[{++errorCounter}]: {error}");
             }
@@ -70,8 +69,11 @@ public class DirDataBuilder
         }
         #endregion
 
+
+        errors = fileSystem.Errors.Select(e => e.ToString()).ToList();
         return dirData;
     }
+
 
     /// <summary>
     /// Build DirData from the specified directory path
@@ -114,21 +116,7 @@ public class DirDataBuilder
 
             // Collect files
             List<FileData> files = [];
-            string[] fileNames = [];
-            try
-            {
-                if (ErrorHandlingTesting && dirPath.Contains("Weather Station"))
-                {
-                    throw new Exception("Test exception at 'Weather Station'");
-                }
-
-                fileNames = Directory.GetFiles(dirPath);
-            }
-            catch (Exception ex)
-            {
-                Interlocked.Increment(ref FailedFileCount);
-                Errors.Add($"Failed to get files from directory: {dirPath}. Reason: {ex.Message}");
-            }
+            fileSystem.TryGetFileNames(dirPath, out string[] fileNames);
 
             foreach (string filePath in fileNames)
             {
@@ -150,19 +138,8 @@ public class DirDataBuilder
 
                 FileInfo fileInfo;
 
-                try
+                if (!fileSystem.TryGetFileInfo(filePath, out fileInfo!))
                 {
-                    if (ErrorHandlingTesting && filePath.Contains("DSCF1898.jpg"))
-                    {
-                        throw new Exception("Test exception at 'DSCF1898.jpg'");
-                    }
-
-                    fileInfo = new(filePath);
-                }
-                catch (Exception ex)
-                {
-                    Interlocked.Increment(ref FailedFileCount);
-                    Errors.Add($"Failed to get info for file: {filePath}. Reason: {ex.Message}");
                     continue;
                 }
 
@@ -185,22 +162,8 @@ public class DirDataBuilder
             // Collect subdirectories
             List<DirData> subDirs = [];
             string[] subDirEntries = [];
-            subDirEntries = Directory.GetDirectories(dirPath);
 
-            try
-            {
-                if (ErrorHandlingTesting && dirPath.Contains("Entrance"))
-                {
-                    throw new Exception("Test exception at 'Entrance'");
-                }
-
-                subDirEntries = Directory.GetDirectories(dirPath);
-            }
-            catch (Exception ex)
-            {
-                Interlocked.Increment(ref FailedFileCount);
-                Errors.Add($"Failed to get subdirectories from directory: {dirPath}. Reason: {ex.Message}");
-            }
+            fileSystem.TryGetDirectoryEntries(dirPath, out subDirEntries);
 
             foreach (string subDirPath in subDirEntries)
             {
@@ -230,22 +193,8 @@ public class DirDataBuilder
             _currentFile = file;
             string filePath = Path.Combine(data.AbsoluteDirectoryPath, file.FileName);
 
-            try
-            {
-                if (ErrorHandlingTesting && ProcessedFileCount == 35)
-                {
-                    throw new Exception("Test exception at file 35");
-                }
-                file.CRC = Crc32.ComputeFile(filePath);
-            }
-            catch (Exception ex)
-            {
-                Interlocked.Increment(ref FailedFileCount);
-                Errors.Add($"Failed to calculate CRC32 for file: {filePath}. Reason: {ex.Message}");
-            }
-
-            // Calculate processed file count for progress
-            Interlocked.Increment(ref ProcessedFileCount);
+            fileSystem.TryComputeCrc32(filePath, out uint crc);
+            file.CRC = crc;
 
             // Accumulate processed file size
             Interlocked.Add(ref ProcessedFileSize, file.Size);
