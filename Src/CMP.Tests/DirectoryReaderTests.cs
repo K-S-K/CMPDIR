@@ -15,8 +15,8 @@ public class DirectoryReaderTests : TestBase
     [Fact]
     public void DirReadTest()
     {
-        IProgressReporter progressReporter = new DiagnosticsProgressReporter();
-        IReportService reportService = new DiagnosticsReportService();
+        IProgressReporter progressReporter = new ProgressReporterStub();
+        IReportService reportService = new ReportServiceStub();
         string dataDirectory = EnVar("CMPDIR_TEST_DATA_PATH");
         string dirPath = Path.Combine(dataDirectory, "books.v2");
 
@@ -32,17 +32,12 @@ public class DirectoryReaderTests : TestBase
 
         string jsonStringExpected = GetResourceFileContent("CMP.Tests.Data.books_v2_directory_data.json");
 
-        // jsonStringActual = jsonStringActual.Replace(dataDirectory.Replace("\\", "\\\\"), "...");
-        // jsonStringExpected = jsonStringExpected.Replace(dataDirectory.Replace("\\", "/"), "...");
-
         bool result = CompareResult(
                 jsonStringActual, jsonStringExpected,
                 "BuildFromDirectory",
                 "books_v2_directory_data.json",
                 out string path);
-        Assert.True(result, path ?? "");
 
-        // Output the JSON string (for testing purposes)
-        Console.WriteLine(jsonStringActual);
+        Assert.True(result, path ?? "");
     }
 }

@@ -12,8 +12,8 @@ internal static class Program
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices(services =>
             {
-                services.AddSingleton<IReportService, ConsoleReportService>();
-                services.AddSingleton<IProgressReporter, ConsoleProgressReporter>();
+                services.AddSingleton<IReportService, ReportServiceConsole>();
+                services.AddSingleton<IProgressReporter, ProgressReporterConsole>();
                 services.AddSingleton<DirectoryProcessor>();
                 services.AddSingleton<DirectoryCompareApp>();
             })

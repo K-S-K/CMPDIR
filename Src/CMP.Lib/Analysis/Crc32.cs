@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-
 namespace CMP.Lib.Analysis;
 
 public static class Crc32

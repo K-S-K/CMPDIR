@@ -3,7 +3,7 @@
 /// <summary>
 /// A report service that outputs to the console
 /// </summary>
-public sealed class ConsoleReportService : IReportService
+public sealed class ReportServiceConsole : IReportService
 {
     public void Info(string message)
         => Console.WriteLine(message);

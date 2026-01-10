@@ -1,9 +1,7 @@
-using System.Collections.Concurrent;
 using System.Diagnostics;
 
 using CMP.Lib.Data;
 using CMP.Lib.Diagnostics;
-using CMP.Lib.Analysis.FailureControl;
 
 namespace CMP.Lib.Analysis;
 
@@ -51,7 +49,7 @@ public class DirDataBuilder
 
             swCalculate.Stop();
             _progressReporter.Clear();
-            _reportService.Info($"Calculated checksums during {ConsoleProgressReporter.DurationToStringMs(swCalculate.Elapsed)}");
+            _reportService.Info($"Calculated checksums during {ProgressReporterConsole.DurationToStringMs(swCalculate.Elapsed)}");
         }
         #endregion
 
@@ -138,16 +136,16 @@ public class DirDataBuilder
 
                 FileInfo fileInfo;
 
-                if (!fileSystem.TryGetFileInfo(filePath, out fileInfo!))
-                {
-                    continue;
-                }
+
+                bool fileInfoAccepted = fileSystem.TryGetFileInfo(filePath, out fileInfo!);
 
                 FileData fileData = new()
                 {
                     FileName = Path.GetFileName(filePath),
                     RelativeDirectoryPath = dirData.RelativeDirectoryPath,
-                    Size = fileInfo.Length,
+                    Size = fileInfoAccepted ? fileInfo.Length : 0,
+                    AnalysisStage = fileInfoAccepted ?
+                        AnalysisStage.Listed : AnalysisStage.FailedOnListing,
                 };
                 files.Add(fileData);
 
@@ -177,7 +175,7 @@ public class DirDataBuilder
             if (nodeLevel == TNL.Root)
             {
                 _progressReporter.Clear();
-                _reportService.Info($"Collected {DetectedFileCount} file(s) with total size {ConsoleProgressReporter.SizeWithSuffix(DetectedFileSize)} during {ConsoleProgressReporter.DurationToStringMs(swCollect.Elapsed)}");
+                _reportService.Info($"Collected {DetectedFileCount} file(s) with total size {ProgressReporterConsole.SizeWithSuffix(DetectedFileSize)} during {ProgressReporterConsole.DurationToStringMs(swCollect.Elapsed)}");
             }
         }
         #endregion
@@ -188,13 +186,16 @@ public class DirDataBuilder
 
     private void CalculateCrc32(DirData data, IReportService reportService)
     {
-        foreach (FileData file in data.Files)
+        foreach (FileData file in data.Files.Where(f => f.AnalysisStage == AnalysisStage.Listed))
         {
             _currentFile = file;
             string filePath = Path.Combine(data.AbsoluteDirectoryPath, file.FileName);
 
-            fileSystem.TryComputeCrc32(filePath, out uint crc);
+            bool crcAccepted = fileSystem.TryComputeCrc32(filePath, out uint crc);
             file.CRC = crc;
+            file.AnalysisStage |= crcAccepted ?
+                AnalysisStage.Measured :
+                AnalysisStage.FailedOnMeasuring;
 
             // Accumulate processed file size
             Interlocked.Add(ref ProcessedFileSize, file.Size);
