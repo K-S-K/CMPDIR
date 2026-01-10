@@ -12,6 +12,11 @@ namespace CMP.Lib.Analysis;
 public enum CmpResult
 {
     /// <summary>
+    /// The comparison result is not defined yet
+    /// </summary>
+    Undefined = 0,
+
+    /// <summary>
     /// No changes detected between the file location and properties in source and target directories
     /// </summary>
     Equal,
@@ -45,4 +50,9 @@ public enum CmpResult
     /// Deduplicated in the target directory (same as Deleted but file or files with same properties also exist in target)
     /// </summary>
     Deduplicated,
+
+    /// <summary>
+    /// An error occurred during analysis
+    /// </summary>
+    Error,
 }

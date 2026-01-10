@@ -36,9 +36,13 @@ public static class Comparator
                 if (targetFile != null)
                 {
                     CmpResult cmpResult =
+                        sourceFile.AnalysisStage.HasFlag(AnalysisStage.Measured) &&
+                        targetFile.AnalysisStage.HasFlag(AnalysisStage.Measured) ?
                         sourceFile.Size == targetFile.Size && sourceFile.CRC == targetFile.CRC
                         ? CmpResult.Equal
-                        : CmpResult.Modified;
+                        : CmpResult.Modified
+                        : CmpResult.Error;
+
 
                     sourceFile.CmpResult = new FileCmpResult
                     {
@@ -75,14 +79,19 @@ public static class Comparator
                             FileData sourceFile = notEqualSourceFiles[i];
                             FileData targetFile = notEqualTargetFiles[i];
 
+                            CmpResult cmpResult =
+                                sourceFile.AnalysisStage.HasFlag(AnalysisStage.Measured) &&
+                                targetFile.AnalysisStage.HasFlag(AnalysisStage.Measured) ? 
+                                CmpResult.Moved : CmpResult.Error;
+
                             sourceFile.CmpResult = new FileCmpResult
                             {
-                                Result = CmpResult.Moved,
+                                Result = cmpResult,
                                 Files = [targetFile]
                             };
                             targetFile.CmpResult = new FileCmpResult
                             {
-                                Result = CmpResult.Moved,
+                                Result = cmpResult,
                                 Files = [sourceFile]
                             };
                         }
@@ -120,9 +129,13 @@ public static class Comparator
                     for (int i = 0; i < notAssignedSourceFilesCount; i++)
                     {
                         FileData sourceFile = notAssignedSourceFiles[i];
+                        CmpResult cmpResult = 
+                            sourceFile.AnalysisStage.HasFlag(AnalysisStage.Measured)?
+                            CmpResult.Deduplicated : CmpResult.Error;
+
                         sourceFile.CmpResult = new FileCmpResult
                         {
-                            Result = CmpResult.Deduplicated,
+                            Result = cmpResult,
                             Files = targetFiles
                         };
                     }
@@ -132,9 +145,13 @@ public static class Comparator
                     for (int i = 0; i < notAssignedTargetFilesCount; i++)
                     {
                         FileData targetFile = notAssignedTargetFiles[i];
+                        CmpResult cmpResult =
+                            targetFile.AnalysisStage.HasFlag(AnalysisStage.Measured) ?
+                            CmpResult.Duplicated: CmpResult.Error;
+
                         targetFile.CmpResult = new FileCmpResult
                         {
-                            Result = CmpResult.Duplicated,
+                            Result = cmpResult,
                             Files = sourceFiles
                         };
                     }
