@@ -57,20 +57,20 @@ public class DirectoryComparatorTests : TestBase
         targetJsonActual = targetJsonActual.Replace(dataDirectory, "...");
         targetJsonExpected = targetJsonExpected.Replace(dataDirectory, "...");
 
-        Assert.True(
-            CompareResult(
+
+        bool compareResult1 = CompareResult(
                 sourceJsonActual, sourceJsonExpected,
                 "CompareDirData",
                 "books_v1_compared.json",
-                out string sourcePath)
-        , sourcePath);
+                out string cmpResultPath1);
 
-        Assert.True(
-            CompareResult(
+        bool compareResult2 = CompareResult(
                 targetJsonActual, targetJsonExpected,
                 "CompareDirData",
                 "books_v2_compared.json",
-                out string targetPath)
-        , targetPath);
+                out string cmpResultPath2);
+
+        Assert.True(compareResult2, cmpResultPath2);
+        Assert.True(compareResult1, cmpResultPath1);
     }
 }

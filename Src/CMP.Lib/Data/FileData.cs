@@ -1,3 +1,6 @@
+using CMP.Lib.Analysis;
+using System.Text.Json.Serialization;
+
 namespace CMP.Lib.Data;
 
 /// <summary>
@@ -14,6 +17,13 @@ public class FileData
     /// The relative path of the file
     /// </summary>
     public string RelativeDirectoryPath { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The analysis stage of the file
+    /// </summary>
+    // add attribute to serialize as string in json
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public AnalysisStage AnalysisStage { get; set; } = AnalysisStage.Listed;
 
     /// <summary>
     /// The size of the file

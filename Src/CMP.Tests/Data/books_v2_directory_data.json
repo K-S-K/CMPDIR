@@ -1,11 +1,12 @@
 ﻿{
-  "AbsoluteDirectoryPath": "/Users/ksk-work/Projects/CMPDIR/Dat/books.v2",
+  "AbsoluteDirectoryPath": "Y:\\CMPDIR\\Dat\\books.v2",
   "RelativeDirectoryPath": "/",
   "DirName": "books.v2",
   "Files": [
     {
       "FileName": "NewFile.txt",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 0,
       "CRC": 0,
       "CmpResult": null,
@@ -14,6 +15,7 @@
     {
       "FileName": "predlog_deutsch16.jpg",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 32458,
       "CRC": 2432470379,
       "CmpResult": null,
@@ -22,6 +24,7 @@
     {
       "FileName": "немного польского.docx",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 13723,
       "CRC": 3767419070,
       "CmpResult": null,
@@ -30,22 +33,25 @@
     {
       "FileName": "окончания артикли.jpeg",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 38084,
       "CRC": 813316427,
       "CmpResult": null,
       "PropertyIndexValue": "38084-307A394B"
     },
     {
-      "FileName": "Определитель растений Кавказа (Гроссгейм А.А.) (z-lib.org).djvu",
+      "FileName": "Определитель растений Кавказа (Гроссгейм А.А.) (z-lib.org).djvu",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 12871901,
       "CRC": 1858176087,
       "CmpResult": null,
       "PropertyIndexValue": "12871901-6EC18457"
     },
     {
-      "FileName": "польский курсив-oeoe.jpg",
+      "FileName": "польский курсив-oeoe.jpg",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 49224,
       "CRC": 2029569210,
       "CmpResult": null,
@@ -54,6 +60,7 @@
     {
       "FileName": "Предложения на deutsch.txt",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 10849,
       "CRC": 719186744,
       "CmpResult": null,
@@ -62,6 +69,7 @@
     {
       "FileName": "Пробники контрольных матан.pdf",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 153601,
       "CRC": 3298952114,
       "CmpResult": null,
@@ -70,22 +78,25 @@
     {
       "FileName": "Сам себе мастер книга.pdf",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 339450,
       "CRC": 1057974060,
       "CmpResult": null,
       "PropertyIndexValue": "339450-3F0F672C"
     },
     {
-      "FileName": "Сербско-хорватско-русскй словарь ложных друзей переводчика.doc",
+      "FileName": "Сербско-хорватско-русскй словарь ложных друзей переводчика.doc",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 612352,
       "CRC": 987073425,
       "CmpResult": null,
       "PropertyIndexValue": "612352-3AD58B91"
     },
     {
-      "FileName": "Список животных, разрешенных к перевозке в качестве ручной клади.docx",
+      "FileName": "Список животных, разрешенных к перевозке в качестве ручной клади.docx",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 15111,
       "CRC": 716333460,
       "CmpResult": null,
@@ -94,6 +105,7 @@
     {
       "FileName": "Список_слов_для_экзамена_на_права.pdf",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 146723,
       "CRC": 640773025,
       "CmpResult": null,
@@ -102,6 +114,7 @@
     {
       "FileName": "Тест1 copy 2.docx",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 13335,
       "CRC": 2198152087,
       "CmpResult": null,
@@ -110,6 +123,7 @@
     {
       "FileName": "Тест1 copy.docx",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 13335,
       "CRC": 2198152087,
       "CmpResult": null,
@@ -118,6 +132,7 @@
     {
       "FileName": "Тест1.docx",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 13335,
       "CRC": 2198152087,
       "CmpResult": null,
@@ -126,6 +141,7 @@
     {
       "FileName": "труды ученых антропологии.pdf",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 1506279,
       "CRC": 2898707290,
       "CmpResult": null,
@@ -134,6 +150,7 @@
     {
       "FileName": "физикаконспектнаколлок.7z",
       "RelativeDirectoryPath": "/",
+      "AnalisysStage": "Listed, Measured",
       "Size": 219387,
       "CRC": 1257057342,
       "CmpResult": null,
@@ -142,13 +159,14 @@
   ],
   "SubDirs": [
     {
-      "AbsoluteDirectoryPath": "/Users/ksk-work/Projects/CMPDIR/Dat/books.v2/german language",
+      "AbsoluteDirectoryPath": "Y:\\CMPDIR\\Dat\\books.v2\\german language",
       "RelativeDirectoryPath": "german language",
       "DirName": "german language",
       "Files": [
         {
           "FileName": "303733_384667988284186_1492357657_n.webp",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 28742,
           "CRC": 3846713057,
           "CmpResult": null,
@@ -157,6 +175,7 @@
         {
           "FileName": "ch.docx",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 18911,
           "CRC": 1329342635,
           "CmpResult": null,
@@ -165,6 +184,7 @@
         {
           "FileName": "ch.pdf",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 35092,
           "CRC": 2899941274,
           "CmpResult": null,
@@ -173,6 +193,7 @@
         {
           "FileName": "german-noun-gender.html",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 5211,
           "CRC": 2301530505,
           "CmpResult": null,
@@ -181,6 +202,7 @@
         {
           "FileName": "Masculine.docx",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 17381,
           "CRC": 742822077,
           "CmpResult": null,
@@ -189,38 +211,43 @@
         {
           "FileName": "present simple verb schema german.docx",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 13366,
           "CRC": 338391568,
           "CmpResult": null,
           "PropertyIndexValue": "13366-142B7210"
         },
         {
-          "FileName": "Немецкий Завьялова учебник.djvu",
+          "FileName": "Немецкий Завьялова учебник.djvu",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 6497607,
           "CRC": 3562682720,
           "CmpResult": null,
           "PropertyIndexValue": "6497607-D45A3960"
         },
         {
-          "FileName": "немецкий пример 2.png",
+          "FileName": "немецкий пример 2.png",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 445216,
           "CRC": 1437291276,
           "CmpResult": null,
           "PropertyIndexValue": "445216-55AB530C"
         },
         {
-          "FileName": "немецкий пример.png",
+          "FileName": "немецкий пример.png",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 991870,
           "CRC": 4233437958,
           "CmpResult": null,
           "PropertyIndexValue": "991870-FC552306"
         },
         {
-          "FileName": "Практический курс немецкого языка_Завьялова Ильина.pdf",
+          "FileName": "Практический курс немецкого языка_Завьялова Ильина.pdf",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 18272333,
           "CRC": 685468718,
           "CmpResult": null,
@@ -229,6 +256,7 @@
         {
           "FileName": "Тест1.docx",
           "RelativeDirectoryPath": "german language",
+          "AnalisysStage": "Listed, Measured",
           "Size": 15779,
           "CRC": 3664807732,
           "CmpResult": null,
@@ -238,21 +266,23 @@
       "SubDirs": []
     },
     {
-      "AbsoluteDirectoryPath": "/Users/ksk-work/Projects/CMPDIR/Dat/books.v2/new folder",
+      "AbsoluteDirectoryPath": "Y:\\CMPDIR\\Dat\\books.v2\\new folder",
       "RelativeDirectoryPath": "new folder",
       "DirName": "new folder",
       "Files": [
         {
           "FileName": "Общая геология Коронкв.pdf",
           "RelativeDirectoryPath": "new folder",
+          "AnalisysStage": "Listed, Measured",
           "Size": 45418757,
           "CRC": 604144018,
           "CmpResult": null,
           "PropertyIndexValue": "45418757-24028192"
         },
         {
-          "FileName": "Поведение - эволюционный подход.fb2",
+          "FileName": "Поведение - эволюционный подход.fb2",
           "RelativeDirectoryPath": "new folder",
+          "AnalisysStage": "Listed, Measured",
           "Size": 6383358,
           "CRC": 2095878839,
           "CmpResult": null,
@@ -262,26 +292,27 @@
       "SubDirs": []
     },
     {
-      "AbsoluteDirectoryPath": "/Users/ksk-work/Projects/CMPDIR/Dat/books.v2/phone-books",
+      "AbsoluteDirectoryPath": "Y:\\CMPDIR\\Dat\\books.v2\\phone-books",
       "RelativeDirectoryPath": "phone-books",
       "DirName": "phone-books",
       "Files": [],
       "SubDirs": [
         {
-          "AbsoluteDirectoryPath": "/Users/ksk-work/Projects/CMPDIR/Dat/books.v2/phone-books/empty folder",
-          "RelativeDirectoryPath": "phone-books/empty folder",
+          "AbsoluteDirectoryPath": "Y:\\CMPDIR\\Dat\\books.v2\\phone-books\\empty folder",
+          "RelativeDirectoryPath": "phone-books\\empty folder",
           "DirName": "empty folder",
           "Files": [],
           "SubDirs": []
         },
         {
-          "AbsoluteDirectoryPath": "/Users/ksk-work/Projects/CMPDIR/Dat/books.v2/phone-books/инст",
-          "RelativeDirectoryPath": "phone-books/инст",
+          "AbsoluteDirectoryPath": "Y:\\CMPDIR\\Dat\\books.v2\\phone-books\\инст",
+          "RelativeDirectoryPath": "phone-books\\инст",
           "DirName": "инст",
           "Files": [
             {
               "FileName": "Cormen. Algorithms Unlocked.pdf",
-              "RelativeDirectoryPath": "phone-books/инст",
+              "RelativeDirectoryPath": "phone-books\\инст",
+              "AnalisysStage": "Listed, Measured",
               "Size": 2619365,
               "CRC": 2971911768,
               "CmpResult": null,
@@ -289,7 +320,8 @@
             },
             {
               "FileName": "McConnell. Code complete.djvu",
-              "RelativeDirectoryPath": "phone-books/инст",
+              "RelativeDirectoryPath": "phone-books\\инст",
+              "AnalisysStage": "Listed, Measured",
               "Size": 21281566,
               "CRC": 174401063,
               "CmpResult": null,
@@ -297,15 +329,17 @@
             },
             {
               "FileName": "Матан Демидович задачник.pdf",
-              "RelativeDirectoryPath": "phone-books/инст",
+              "RelativeDirectoryPath": "phone-books\\инст",
+              "AnalisysStage": "Listed, Measured",
               "Size": 17394791,
               "CRC": 222920931,
               "CmpResult": null,
               "PropertyIndexValue": "17394791-0D4980E3"
             },
             {
-              "FileName": "Немецкий Завьялова учебник.djvu",
-              "RelativeDirectoryPath": "phone-books/инст",
+              "FileName": "Немецкий Завьялова учебник.djvu",
+              "RelativeDirectoryPath": "phone-books\\инст",
+              "AnalisysStage": "Listed, Measured",
               "Size": 6497607,
               "CRC": 3562682720,
               "CmpResult": null,
@@ -313,7 +347,8 @@
             },
             {
               "FileName": "Основы теории графов.djvu",
-              "RelativeDirectoryPath": "phone-books/инст",
+              "RelativeDirectoryPath": "phone-books\\инст",
+              "AnalisysStage": "Listed, Measured",
               "Size": 13256768,
               "CRC": 1583037113,
               "CmpResult": null,
@@ -321,7 +356,8 @@
             },
             {
               "FileName": "Теория чисел 1966.djvu",
-              "RelativeDirectoryPath": "phone-books/инст",
+              "RelativeDirectoryPath": "phone-books\\инст",
+              "AnalisysStage": "Listed, Measured",
               "Size": 5886613,
               "CRC": 916998538,
               "CmpResult": null,
@@ -333,13 +369,14 @@
       ]
     },
     {
-      "AbsoluteDirectoryPath": "/Users/ksk-work/Projects/CMPDIR/Dat/books.v2/инст-oeoe",
+      "AbsoluteDirectoryPath": "Y:\\CMPDIR\\Dat\\books.v2\\инст-oeoe",
       "RelativeDirectoryPath": "инст-oeoe",
       "DirName": "инст-oeoe",
       "Files": [
         {
           "FileName": "McConnell. Code complete.djvu",
           "RelativeDirectoryPath": "инст-oeoe",
+          "AnalisysStage": "Listed, Measured",
           "Size": 21281566,
           "CRC": 174401063,
           "CmpResult": null,
@@ -348,14 +385,16 @@
         {
           "FileName": "NewFile-oeoe.txt",
           "RelativeDirectoryPath": "инст-oeoe",
+          "AnalisysStage": "Listed, Measured",
           "Size": 0,
           "CRC": 0,
           "CmpResult": null,
           "PropertyIndexValue": "0-00000000"
         },
         {
-          "FileName": "Немецкий Завьялова учебник.djvu",
+          "FileName": "Немецкий Завьялова учебник.djvu",
           "RelativeDirectoryPath": "инст-oeoe",
+          "AnalisysStage": "Listed, Measured",
           "Size": 6497607,
           "CRC": 3562682720,
           "CmpResult": null,
@@ -364,6 +403,7 @@
         {
           "FileName": "Основы теории графов.djvu",
           "RelativeDirectoryPath": "инст-oeoe",
+          "AnalisysStage": "Listed, Measured",
           "Size": 13256768,
           "CRC": 1583037113,
           "CmpResult": null,
@@ -372,6 +412,7 @@
         {
           "FileName": "Теория чисел 1966.djvu",
           "RelativeDirectoryPath": "инст-oeoe",
+          "AnalisysStage": "Listed, Measured",
           "Size": 5886613,
           "CRC": 916998538,
           "CmpResult": null,
