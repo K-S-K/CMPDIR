@@ -7,6 +7,11 @@
 public enum AnalysisStage
 {
     /// <summary>
+    /// The file does not exist or has not been processed
+    /// </summary>
+    Absent = 0,
+
+    /// <summary>
     /// Files are being listed and size if the file was retrieved from the file system
     /// </summary>
     Listed = 1,

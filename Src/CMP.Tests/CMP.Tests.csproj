@@ -29,6 +29,8 @@
     <EmbeddedResource Include="Data/books_v2_directory_data.json" />
     <EmbeddedResource Include="Data/books_v1_compared.json" />
     <EmbeddedResource Include="Data/books_v2_compared.json" />
+    <EmbeddedResource Include="Data/file_pairs_out.json" />
+    <EmbeddedResource Include="Data/file_pairs.json" />
   </ItemGroup>
 
 </Project>
