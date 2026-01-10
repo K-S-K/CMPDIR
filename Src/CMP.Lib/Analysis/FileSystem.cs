@@ -3,6 +3,9 @@ using System.Collections.Concurrent;
 
 namespace CMP.Lib.Analysis;
 
+/// <summary>
+/// Represents a file system for analysis purposes.
+/// </summary>
 public class FileSystem
 {
     #region -> Internal Fields
@@ -16,7 +19,7 @@ public class FileSystem
     #endregion
 
 
-    #region -> Public Properties
+    #region -> Properties
     public long FailedFileCount => _failedFileCount;
     public long ProcessedFileCount => _processedFileCount;
     #endregion

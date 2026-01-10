@@ -3,11 +3,11 @@ using System.Diagnostics;
 
 namespace CMP.Lib.Diagnostics;
 
-public sealed class ConsoleProgressReporter : IProgressReporter
+public sealed class ProgressReporterConsole : IProgressReporter
 {
     private readonly ConsoleLineUpdater _updater = new();
+    private readonly Stopwatch _stopwatch = new();
     private FileData? _lastReportedFile = null;
-    private Stopwatch _stopwatch = new();
 
     public void Report(ProgressInfo info)
     {
@@ -97,7 +97,7 @@ public sealed class ConsoleProgressReporter : IProgressReporter
     /// <param name="current">The current value.</param>
     /// <param name="total">The total value.</param>
     /// <returns>A string representing the percentage of completion.</returns>
-    private string Percentage(long current, long total)
+    private static string Percentage(long current, long total)
     {
         if (total == 0) return "0.0%";
         return $"{current * 100.0 / total:0.0}%";
@@ -120,6 +120,11 @@ public sealed class ConsoleProgressReporter : IProgressReporter
             return $"{size} B";
     }
 
+    /// <summary>
+    /// Returns a string representation of a TimeSpan duration including milliseconds.
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     public static string DurationToStringMs(TimeSpan duration)
     {
         string result = $"{duration.Hours:00}:{duration.Minutes:00}:{duration.Seconds:00}.{(int)duration.Milliseconds:000}";
@@ -138,6 +143,11 @@ public sealed class ConsoleProgressReporter : IProgressReporter
         return result;
     }
 
+    /// <summary>
+    /// Returns a string representation of a TimeSpan duration without milliseconds.
+    /// </summary>
+    /// <param name="duration"></param>
+    /// <returns></returns>
     public static string DurationToString(TimeSpan duration)
     {
         string result = $"{duration.Hours:00}:{duration.Minutes:00}:{duration.Seconds:00}";

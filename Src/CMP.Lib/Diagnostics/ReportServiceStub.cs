@@ -3,7 +3,7 @@ namespace CMP.Lib.Diagnostics;
 /// <summary>
 /// A report service for diagnostics
 /// </summary>
-public class DiagnosticsReportService : IReportService
+public class ReportServiceStub : IReportService
 {
     public void Info(string message)
     {

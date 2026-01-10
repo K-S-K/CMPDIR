@@ -1,9 +1,7 @@
-using System.Collections.Concurrent;
 using System.Diagnostics;
 
 using CMP.Lib.Data;
 using CMP.Lib.Diagnostics;
-using CMP.Lib.Analysis.FailureControl;
 
 namespace CMP.Lib.Analysis;
 
@@ -51,7 +49,7 @@ public class DirDataBuilder
 
             swCalculate.Stop();
             _progressReporter.Clear();
-            _reportService.Info($"Calculated checksums during {ConsoleProgressReporter.DurationToStringMs(swCalculate.Elapsed)}");
+            _reportService.Info($"Calculated checksums during {ProgressReporterConsole.DurationToStringMs(swCalculate.Elapsed)}");
         }
         #endregion
 
@@ -177,7 +175,7 @@ public class DirDataBuilder
             if (nodeLevel == TNL.Root)
             {
                 _progressReporter.Clear();
-                _reportService.Info($"Collected {DetectedFileCount} file(s) with total size {ConsoleProgressReporter.SizeWithSuffix(DetectedFileSize)} during {ConsoleProgressReporter.DurationToStringMs(swCollect.Elapsed)}");
+                _reportService.Info($"Collected {DetectedFileCount} file(s) with total size {ProgressReporterConsole.SizeWithSuffix(DetectedFileSize)} during {ProgressReporterConsole.DurationToStringMs(swCollect.Elapsed)}");
             }
         }
         #endregion

@@ -15,8 +15,8 @@ public class DirectoryReaderTests : TestBase
     [Fact]
     public void DirReadTest()
     {
-        IProgressReporter progressReporter = new DiagnosticsProgressReporter();
-        IReportService reportService = new DiagnosticsReportService();
+        IProgressReporter progressReporter = new ProgressReporterStub();
+        IReportService reportService = new ReportServiceStub();
         string dataDirectory = EnVar("CMPDIR_TEST_DATA_PATH");
         string dirPath = Path.Combine(dataDirectory, "books.v2");
 
