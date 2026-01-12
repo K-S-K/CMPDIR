@@ -62,8 +62,17 @@ public class FileSystem
     {
         try
         {
-            GetFileInfo(filePath, out fileInfo);
-            return fileInfo != null;
+            try
+            {
+                GetFileInfo(filePath, out fileInfo);
+                long size = fileInfo.Length;
+                return fileInfo != null;
+            }
+            catch (Exception e)
+            {
+                Console.Beep();
+                throw new FileMetadataReadException(e, filePath);
+            }
         }
         catch (AnalysisException ex)
         {
