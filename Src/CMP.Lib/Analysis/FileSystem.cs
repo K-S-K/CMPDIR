@@ -70,7 +70,6 @@ public class FileSystem
             }
             catch (Exception e)
             {
-                Console.Beep();
                 throw new FileMetadataReadException(e, filePath);
             }
         }
