@@ -21,6 +21,10 @@ internal static class Program
             .Build();
 
         var app = host.Services.GetRequiredService<CompareApp>();
-        return app.Run(args);
+
+        int result = app.Run(args);
+
+        Console.Beep();
+        return result;
     }
 }
