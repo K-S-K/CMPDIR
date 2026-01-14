@@ -19,6 +19,12 @@ public class FileData
     public string RelativeDirectoryPath { get; set; } = string.Empty;
 
     /// <summary>
+    /// The full path of the file
+    /// </summary>
+    [JsonIgnore]
+    public string FullPath => Path.Combine(RelativeDirectoryPath, FileName);
+
+    /// <summary>
     /// The analysis stage of the file
     /// </summary>
     // add attribute to serialize as string in json

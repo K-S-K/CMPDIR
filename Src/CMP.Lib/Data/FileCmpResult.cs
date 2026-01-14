@@ -22,6 +22,12 @@ public class FileCmpResult
     public CmpResult Result { get; set; } = CmpResult.Equal;
 
     /// <summary>
+    /// Indicates whether this result is for file pairs (true) or directory comparison (false)
+    /// </summary>
+    [JsonIgnore]
+    public bool ForPairs { get; set; } = false;
+
+    /// <summary>
     /// The list of related FileData objects in the other directory
     /// </summary>
     [JsonIgnore]
@@ -30,7 +36,9 @@ public class FileCmpResult
     /// <summary>
     /// The list of related file paths in the other directory
     /// </summary>
-    public List<string> FilePaths => Files.Select(f => f.FileName).ToList();
+    public List<string> FilePaths => ForPairs ?
+        Files.Select(f => f.FullPath).ToList() :
+        Files.Select(f => f.FileName).ToList();
 
     /// <summary>
     /// Override ToString for better debugging output

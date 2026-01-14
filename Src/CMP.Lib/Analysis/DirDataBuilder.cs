@@ -145,7 +145,7 @@ public class DirDataBuilder
                     RelativeDirectoryPath = dirData.RelativeDirectoryPath,
                     Size = fileInfoAccepted ? fileInfo.Length : 0,
                     AnalysisStage = fileInfoAccepted ?
-                        AnalysisStage.Listed : AnalysisStage.FailedOnListing,
+                      AnalysisStage.Listed : AnalysisStage.FailedOnListing
                 };
                 files.Add(fileData);
 
@@ -153,7 +153,7 @@ public class DirDataBuilder
                 Interlocked.Increment(ref DetectedFileCount);
 
                 // Accumulate detected file size
-                Interlocked.Add(ref DetectedFileSize, fileInfo.Length);
+                Interlocked.Add(ref DetectedFileSize, fileData.Size);
             }
             dirData.Files = files.OrderBy(f => f.FileName).ToList();
 

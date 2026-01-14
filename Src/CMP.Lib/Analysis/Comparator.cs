@@ -43,7 +43,6 @@ public static class Comparator
                         : CmpResult.Modified
                         : CmpResult.Error;
 
-
                     sourceFile.CmpResult = new FileCmpResult
                     {
                         Result = cmpResult,

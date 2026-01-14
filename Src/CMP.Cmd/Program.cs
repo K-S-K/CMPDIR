@@ -14,12 +14,13 @@ internal static class Program
             {
                 services.AddSingleton<IReportService, ReportServiceConsole>();
                 services.AddSingleton<IProgressReporter, ProgressReporterConsole>();
+                services.AddSingleton<FilePairProcessor>();
                 services.AddSingleton<DirectoryProcessor>();
-                services.AddSingleton<DirectoryCompareApp>();
+                services.AddSingleton<CompareApp>();
             })
             .Build();
 
-        var app = host.Services.GetRequiredService<DirectoryCompareApp>();
+        var app = host.Services.GetRequiredService<CompareApp>();
         return app.Run(args);
     }
 }

@@ -1,0 +1,30 @@
+[
+  {
+    "Result": "Equal",
+    "FilePaths": [
+      "Y:\\CMPDIR\\Dat\\books.v1\\german language\\ch.pdf",
+      "Y:\\CMPDIR\\Dat\\books.v2\\german language\\ch.pdf"
+    ]
+  },
+  {
+    "Result": "Modified",
+    "FilePaths": [
+      "Y:\\CMPDIR\\Dat\\books.v1\\german language\\ch.docx",
+      "Y:\\CMPDIR\\Dat\\books.v2\\german language\\ch.docx"
+    ]
+  },
+  {
+    "Result": "Added",
+    "FilePaths": [
+      "Y:\\CMPDIR\\Dat\\books.v1\\german language\\en.pdf",
+      "Y:\\CMPDIR\\Dat\\books.v2\\german language\\ch.pdf"
+    ]
+  },
+  {
+    "Result": "Deleted",
+    "FilePaths": [
+      "Y:\\CMPDIR\\Dat\\books.v1\\german language\\ch.pdf",
+      "Y:\\CMPDIR\\Dat\\books.v2\\german language\\en.pdf"
+    ]
+  }
+]

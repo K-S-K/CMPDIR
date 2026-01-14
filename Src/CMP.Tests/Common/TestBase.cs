@@ -41,6 +41,18 @@ public class TestBase
     }
 
     /// <summary>
+    /// Creates and returns a subdirectory path within the test results directory
+    /// </summary>
+    /// <param name="subDirName">Name of the subdirectory</param>
+    /// <returns>Full path to the subdirectory</returns>
+    protected string TestSubDir(string subDirName)
+    {
+        string path = Path.Combine(ResultDir, subDirName);
+        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+        return path;
+    }
+
+    /// <summary>
     /// Reads string value from environment variable
     /// </summary>
     /// <param name="envVariableName">Environment Variable Name</param>
